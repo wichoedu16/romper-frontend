@@ -18,4 +18,24 @@ export class EmployeeService {
       return this.http.get(endpoint);
     }
   
+    /**
+     * 
+     * @param body 
+     * @returns employee
+     */
+    saveEmployee(body:any){
+      const endpoint = `${base_url}/employees`;
+      return this.http.post(endpoint, body);
+    }
+
+    /**
+     * 
+     * @param body 
+     * @param id 
+     * @returns 
+     */
+    updateEmployee(body: any, id: any){
+      const endpoint = `${base_url}/employees/ ${id}`;
+      return this.http.put(endpoint, body);
+    }
 }

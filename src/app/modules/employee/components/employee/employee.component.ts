@@ -1,8 +1,9 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatSnackBar, MatSnackBarRef, SimpleSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
 import { EmployeeService } from 'src/app/modules/shared/services/employee.service';
+import { NewEmployeeComponent } from '../new-employee/new-employee.component';
 
 @Component({
   selector: 'app-employee',
@@ -54,10 +55,28 @@ export class EmployeeComponent implements OnInit{
   }
 
   openEmployeeDialog(){
-    
+    const dialogRef = this.dialog.open(NewEmployeeComponent , {
+      width: '650px'
+    });
+
+    dialogRef.afterClosed().subscribe((result : any) => {
+      if( result == 1){
+        this.openSnackBar("Empleado Agregado", "Exitosa");
+        this.getEmployees();
+      } else if (result == 2) {
+        this.openSnackBar("Se produjo un error al guardar el empleado", "Error");
+      }
+    });
   }
 
-}
+  openSnackBar(message: string, action: string) : MatSnackBarRef<SimpleSnackBar>{
+    return this.snackBar.open(message, action, {
+      duration: 4000
+    })
+
+  }
+  
+  }
 
 export interface EmployeeElement {
   id: number;
