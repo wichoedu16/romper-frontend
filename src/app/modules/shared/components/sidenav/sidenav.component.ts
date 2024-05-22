@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './sidenav.component.html',
   styleUrls: ['./sidenav.component.css']
 })
-export class SidenavComponent implements OnInit {
+export class SidenavComponent {
 
   mobileQuery: MediaQueryList;
   
@@ -16,11 +16,7 @@ export class SidenavComponent implements OnInit {
   ] 
 
   constructor(media: MediaMatcher){
-
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
+  }
 
-  }
-  ngOnInit(): void {
-      
-  }
 }
