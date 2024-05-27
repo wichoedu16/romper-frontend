@@ -13,11 +13,19 @@ export class EmployeeService {
      * 
      * @returns get all employees
      */
-  getEmployees(){
+    getEmployees(){
       const endpoint = `${base_url}/employees`;
       return this.http.get(endpoint);
     }
-  
+    /**
+    * 
+    * @param id 
+    * @returns 
+    */
+    getEmployeeById(id : any){
+      const endpoint = `${base_url}/employees/${id}`;
+      return this.http.get(endpoint);
+    }
     /**
      * 
      * @param body 
@@ -27,7 +35,6 @@ export class EmployeeService {
       const endpoint = `${base_url}/employees`;
       return this.http.post(endpoint, body);
     }
-
     /**
      * 
      * @param body 
@@ -35,7 +42,7 @@ export class EmployeeService {
      * @returns 
      */
     updateEmployee(body: any, id: any){
-      const endpoint = `${base_url}/employees/ ${id}`;
+      const endpoint = `${base_url}/employees/${id}`;
       return this.http.put(endpoint, body);
     }
 }

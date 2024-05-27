@@ -1,8 +1,33 @@
-table {
-    width: 100%;
+@import url('https://fonts.googleapis.com/css2?family=Darker+Grotesque&display=swap');
+
+h2 {
+    color: rgb(20, 45, 66);
 }
 
-ul li{
+table {
+    font-size: 1px;
+    border-collapse: collapse;
+    width: 100%;
+    table-layout: fixed;
+}
+
+th, td {
+    padding: 1em;
+}
+
+th {
+    font-size: 12px;
+    background-color: rgb(20, 45, 66);
+    text-align: center;
+}
+
+td {
+    font-size: 11px;
+    color: rgb(20, 45, 66);
+    text-align: left;
+}
+
+ul li {
     list-style: none;
 }
 
@@ -15,11 +40,11 @@ ul li{
     margin-left: auto;
 }
 
-mat-form-field{
+mat-form-field {
     width: 140%;
 }
 
 .mat-cell:nth-child(1),
-.mat-header-cell:nth-child(1){
+.mat-header-cell:nth-child(1) {
     flex: 0 0 6%;
 }

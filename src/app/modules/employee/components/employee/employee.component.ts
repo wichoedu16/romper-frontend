@@ -21,7 +21,7 @@ export class EmployeeComponent implements OnInit{
     this.getEmployees();
   }
 
-  displayedColumns: string[] = ['id', 'nombre', 'apellidoPaterno', 'actions'];
+  displayedColumns: string[] = ['id','cedula', 'nombre', 'apellidoPaterno','estado','actions'];
   dataSource = new MatTableDataSource<EmployeeElement>();
   
 
@@ -29,8 +29,6 @@ export class EmployeeComponent implements OnInit{
     
     this.employeeService.getEmployees()
     .subscribe( (data:any) => {
-
-      console.log("respuesta de empleados: ", data);
       this.processEmployeesResponse(data);
 
     }, (error: any) => {
@@ -55,18 +53,52 @@ export class EmployeeComponent implements OnInit{
   }
 
   openEmployeeDialog(){
-    const dialogRef = this.dialog.open(NewEmployeeComponent , {
-      width: '650px'
+    const dialogRef = this.dialog.open(NewEmployeeComponent, {
+      width: '700px'
     });
 
     dialogRef.afterClosed().subscribe((result : any) => {
       if( result == 1){
-        this.openSnackBar("Empleado Agregado", "Exitosa");
+        this.openSnackBar("Empleado agregado", "Exitosa");
         this.getEmployees();
       } else if (result == 2) {
-        this.openSnackBar("Se produjo un error al guardar el empleado", "Error");
+        this.openSnackBar("Se produjo un error al guardar el e mpleado", "Error");
       }
     });
+  }
+
+  edit(employee:any){
+    const dialogRef = this.dialog.open(NewEmployeeComponent, {
+      width: '700px',
+      data: employee
+    });
+    
+    dialogRef.afterClosed().subscribe((result:any) => {
+      
+      if( result == 1){
+        this.openSnackBar("Empleado Actualizado", "Exitosa");
+        this.getEmployees();
+      } else if (result == 2) {
+        this.openSnackBar("Se produjo un error al actualizar el empleado", "Error");
+      }
+    });
+  }
+
+  delete(id: any){
+    
+
+  }
+
+  buscar( termino: string){
+
+    if( termino.length === 0){
+      return this.getEmployees();
+    }
+
+    this.employeeService.getEmployeeById(termino)
+            .subscribe( (resp: any) => {
+              this.processEmployeesResponse(resp);
+            })
   }
 
   openSnackBar(message: string, action: string) : MatSnackBarRef<SimpleSnackBar>{
@@ -80,6 +112,29 @@ export class EmployeeComponent implements OnInit{
 
 export interface EmployeeElement {
   id: number;
-  nombre: string;
+  cedula: string;
+  usuario: string;
+  estado: string;
+  nombre:string;
   apellidoPaterno: string;
+  apellidoMaterno: string;
+  fechaNacimiento: string;
+  sexo: string;
+  nacionalidad: string;
+  estadoCivil: string;
+  fechaIngreso: string;
+  fechaSalida:string;
+  fechaReingreso: string;
+  gradoAcademico: string;
+  titulo: string;
+  salario: string;
+  telefono: string;
+  celular: string;
+  provinciaId: string;
+  ciudadCodigo: string;
+  callePrincipal: string;
+  calleSecundaria: string;
+  correoPersonal: string;
+  correoInstitucional: string;
+  cargoId: string;
 }

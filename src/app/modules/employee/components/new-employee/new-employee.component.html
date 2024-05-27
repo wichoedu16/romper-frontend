@@ -3,16 +3,151 @@
 
     <form [formGroup]="employeeForm">
         <div class="category-container">
-
-            <mat-form-field>
-                <mat-label>Nombre</mat-label>
-                <input matInput placeholder="Nombre" formControlName="nombre" required/>
-            </mat-form-field>
-
-            <mat-form-field>
-                <mat-label>Apellido Paterno</mat-label>
-                <input matInput placeholder="Apellido Paterno" formControlName="apellidoPaterno" required />
-            </mat-form-field>
+            <!-- DATOS PERSONALES -->
+            <div class="section personal-data">
+                <h2>Datos Personales</h2>
+                <div class="fields-row">
+                    <mat-form-field appearance="fill" class="field">
+                        <mat-label># Idenficiación</mat-label>
+                        <input matInput placeholder="Cedula" formControlName="cedula" />
+                    </mat-form-field>
+                    <mat-form-field appearance="fill" class="field">
+                        <mat-label>Fecha Nacimiento</mat-label>
+                        <input matInput [matDatepicker]="pickerNacimiento" formControlName="fechaNacimiento" />
+                        <mat-hint>dd/mm/aaaa</mat-hint>
+                        <mat-datepicker-toggle matIconSuffix [for]="pickerNacimiento"></mat-datepicker-toggle>
+                        <mat-datepicker #pickerNacimiento startView="year"></mat-datepicker>
+                    </mat-form-field>
+                    <mat-form-field appearance="fill" class="field">
+                        <mat-label>Nombre</mat-label>
+                        <input matInput placeholder="Nombre" formControlName="nombre" />
+                    </mat-form-field>
+                    <mat-form-field appearance="fill" class="field">
+                        <mat-label>Apellido Paterno</mat-label>
+                        <input matInput placeholder="Apellido Paterno" formControlName="apellidoPaterno" />
+                    </mat-form-field>
+                    <mat-form-field appearance="fill" class="field">
+                        <mat-label>Apellido Materno</mat-label>
+                        <input matInput placeholder="Apellido Materno" formControlName="apellidoMaterno" />
+                    </mat-form-field> 
+                    <mat-form-field appearance="fill" class="field">
+                        <mat-label>Sexo</mat-label>
+                        <mat-select formControlName="sexo">
+                            <mat-option value="F">Femenino</mat-option>
+                            <mat-option value="M">Masculino</mat-option>
+                            <mat-option value="O">Otro</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field appearance="fill" class="field">
+                        <mat-label>Nacionalidad</mat-label>
+                        <input matInput placeholder="Nacionalidad" formControlName="nacionalidad" />
+                    </mat-form-field>
+                    <mat-form-field appearance="fill" class="field">
+                        <mat-label>Estado Civil</mat-label>
+                        <mat-select formControlName="estadoCivil">
+                            <mat-option value="S">Soltero</mat-option>
+                            <mat-option value="C">Casado</mat-option>
+                            <mat-option value="V">Viudo</mat-option>
+                            <mat-option value="U">Unión Libre</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field appearance="fill" class="field">
+                        <mat-label>Grado Académico</mat-label>
+                        <mat-select formControlName="gradoAcademico">
+                            <mat-option value="1">Primaria</mat-option>
+                            <mat-option value="2">Secundaria</mat-option>
+                            <mat-option value="3">Universitaria</mat-option>
+                            <mat-option value="4">Master</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field appearance="fill" class="field">
+                        <mat-label>Título</mat-label>
+                        <mat-select formControlName="titulo">
+                            <mat-option value="1">Ing. Sistemas</mat-option>
+                            <mat-option value="2">Ing. Redes</mat-option>
+                            <mat-option value="3">Secundaria</mat-option>
+                            <mat-option value="4">Otro</mat-option>
+                        </mat-select>
+                    </mat-form-field>                    
+                </div>
+            </div>
+            <!-- DATOS DE CONTACTO -->
+            <div class="section contact-data">
+                <div class="fields-row">
+                    <h2>Datos de Contacto</h2>
+                    <div class="fields-row">
+                        <mat-form-field appearance="fill" class="field">
+                            <mat-label>Teléfono</mat-label>
+                            <input type="number" matInput formControlName="telefono">
+                            <mat-icon matSuffix>mode_edit</mat-icon>
+                        </mat-form-field>
+                        <mat-form-field appearance="fill" class="field">
+                            <mat-label>Celular</mat-label>
+                            <input type="number" matInput formControlName="celular">
+                            <mat-icon matSuffix>mode_edit</mat-icon>
+                        </mat-form-field>
+                        <mat-form-field class="field full-width">
+                            <mat-label>Calle Principal</mat-label>
+                            <textarea matInput formControlName="callePrincipal"></textarea>
+                          </mat-form-field>
+                        <mat-form-field appearance="fill" class="field">
+                            <mat-label>Calle Secundaria</mat-label>
+                            <input matInput formControlName="calleSecundaria" />
+                        </mat-form-field>
+                        <mat-form-field appearance="fill" class="field">
+                            <mat-label>Correo Personal</mat-label>
+                            <input matInput placeholder="emailPersonal" formControlName="correoPersonal" />
+                        </mat-form-field>
+                        
+                    </div>
+                </div>
+            </div>
+            <!-- DATOS DEL SISTEMA -->
+            <div class="section company-data">
+                <div class="fields-row">
+                    <h2>Datos Sistema</h2>
+                    <div class="fields-row">
+                        <mat-form-field appearance="fill" class="field">
+                            <mat-label>Fecha Ingreso</mat-label>
+                            <input matInput [matDatepicker]="pickerIngreso" formControlName="fechaIngreso">
+                            <mat-hint>dd/mm/aaaa</mat-hint>
+                            <mat-datepicker-toggle matIconSuffix [for]="pickerIngreso"></mat-datepicker-toggle>
+                            <mat-datepicker #pickerIngreso startView="year"></mat-datepicker>
+                        </mat-form-field>
+                        <mat-form-field appearance="fill" class="field">
+                            <mat-label>Fecha Salida</mat-label>
+                            <input matInput [matDatepicker]="pickerSalida" formControlName="fechaSalida">
+                            <mat-hint>dd/mm/aaaa</mat-hint>
+                            <mat-datepicker-toggle matIconSuffix [for]="pickerSalida"></mat-datepicker-toggle>
+                            <mat-datepicker #pickerSalida startView="year"></mat-datepicker>
+                        </mat-form-field>
+                        <mat-form-field appearance="fill" class="field">
+                            <mat-label>Usuario</mat-label>
+                            <input matInput placeholder="Usuario" formControlName="usuario" />
+                        </mat-form-field>
+                        <mat-form-field appearance="fill" class="field">
+                            <mat-label>Correo Institucional</mat-label>
+                            <input matInput formControlName="correoInstitucional" />
+                        </mat-form-field>
+                        <mat-form-field appearance="fill" class="field">
+                            <mat-label>Estado</mat-label>
+                            <mat-select formControlName="estado">
+                                <mat-option value="A">Activo</mat-option>
+                                <mat-option value="I">Inactivo</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <mat-form-field appearance="fill" class="field">
+                            <mat-label>Cargo</mat-label>
+                            <input matInput formControlName="cargo">
+                        </mat-form-field>
+                        <mat-form-field appearance="fill" class="field">
+                            <mat-label>Salario</mat-label>
+                            <input matInput type="number" placeholder="0" formControlName="salario">
+                            <span matTextPrefix>$&nbsp;</span>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
 
         </div>
     </form>

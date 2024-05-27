@@ -19,4 +19,5 @@ import { NewEmployeeComponent } from './components/new-employee/new-employee.com
     ReactiveFormsModule
   ]
 })
+
 export class EmployeeModule { }
