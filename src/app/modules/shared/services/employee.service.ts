@@ -45,4 +45,14 @@ export class EmployeeService {
       const endpoint = `${base_url}/employees/${id}`;
       return this.http.put(endpoint, body);
     }
+
+    /**
+     * 
+     * @param id 
+     * @returns 
+     */
+    deleteEmployee(id: any){
+      const endpoint = `${base_url}/employees/${id}`;
+      return this.http.delete(endpoint);
+    }
 }

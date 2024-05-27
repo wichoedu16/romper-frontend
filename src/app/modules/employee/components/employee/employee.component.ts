@@ -4,6 +4,7 @@ import { MatSnackBar, MatSnackBarRef, SimpleSnackBar } from '@angular/material/s
 import { MatTableDataSource } from '@angular/material/table';
 import { EmployeeService } from 'src/app/modules/shared/services/employee.service';
 import { NewEmployeeComponent } from '../new-employee/new-employee.component';
+import { ConfirmComponent } from 'src/app/modules/shared/components/confirm/confirm.component';
 
 @Component({
   selector: 'app-employee',
@@ -59,10 +60,10 @@ export class EmployeeComponent implements OnInit{
 
     dialogRef.afterClosed().subscribe((result : any) => {
       if( result == 1){
-        this.openSnackBar("Empleado agregado", "Exitosa");
+        this.openSnackBar("Empleado Agregado", "Exito");
         this.getEmployees();
       } else if (result == 2) {
-        this.openSnackBar("Se produjo un error al guardar el e mpleado", "Error");
+        this.openSnackBar("Se produjo un error al guardar el empleado", "Error");
       }
     });
   }
@@ -76,7 +77,7 @@ export class EmployeeComponent implements OnInit{
     dialogRef.afterClosed().subscribe((result:any) => {
       
       if( result == 1){
-        this.openSnackBar("Empleado Actualizado", "Exitosa");
+        this.openSnackBar("Empleado Actualizado", "Exito");
         this.getEmployees();
       } else if (result == 2) {
         this.openSnackBar("Se produjo un error al actualizar el empleado", "Error");
@@ -85,8 +86,20 @@ export class EmployeeComponent implements OnInit{
   }
 
   delete(id: any){
+    const dialogRef = this.dialog.open(ConfirmComponent, {
+      width: '350px',
+      data: {id: id}
+    });
     
-
+    dialogRef.afterClosed().subscribe((result:any) => {
+      
+      if( result == 1){
+        this.openSnackBar("Empleado Eliminado", "Exito");
+        this.getEmployees();
+      } else if (result == 2) {
+        this.openSnackBar("Se produjo un error al eliminar el empleado", "Error");
+      }
+    });
   }
 
   buscar( termino: string){
@@ -103,7 +116,7 @@ export class EmployeeComponent implements OnInit{
 
   openSnackBar(message: string, action: string) : MatSnackBarRef<SimpleSnackBar>{
     return this.snackBar.open(message, action, {
-      duration: 4000
+      duration: 5000
     })
 
   }
