@@ -25,6 +25,7 @@ export class NewEmployeeComponent implements OnInit {
 
     this.employeeForm = this.fb.group({
       cedula: ['', Validators.required],
+      tipoIdentificacion: ['', Validators.required],
       fechaNacimiento: ['', Validators.required],
       nombre: ['', Validators.required],
       apellidoMaterno: ['', Validators.required],
@@ -65,6 +66,7 @@ export class NewEmployeeComponent implements OnInit {
 
     const data = {
       nombre: this.employeeForm.get('nombre')?.value,
+      tipoIdentificacion: this.employeeForm.get('tipoIdentificacion')?.value,
       apellidoPaterno: this.employeeForm.get('apellidoPaterno')?.value,
       cedula: this.employeeForm.get('cedula')?.value,
       usuario: this.employeeForm.get('usuario')?.value,

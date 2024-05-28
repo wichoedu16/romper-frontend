@@ -8,8 +8,16 @@
                 <h2>Datos Personales</h2>
                 <div class="fields-row">
                     <mat-form-field appearance="fill" class="field">
-                        <mat-label># Idenficiación</mat-label>
-                        <input matInput placeholder="Cedula" formControlName="cedula" />
+                        <mat-label>Tipo Identificación</mat-label>
+                        <mat-select formControlName="tipoIdentificacion">
+                            <mat-option value="C">Cédula</mat-option>
+                            <mat-option value="R">RUC</mat-option>
+                            <mat-option value="P">Pasaporte</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field appearance="fill" class="field">
+                        <mat-label># Identificación</mat-label>
+                        <input matInput placeholder="Cedula" formControlName="cedula" maxlength="13"/>
                     </mat-form-field>
                     <mat-form-field appearance="fill" class="field">
                         <mat-label>Fecha Nacimiento</mat-label>
