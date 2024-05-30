@@ -127,8 +127,7 @@ export class EmployeeComponent implements OnInit {
     if (termino.length === 0) {
       return this.getEmployees();
     }
-
-    this.employeeService.getEmployeeById(termino).subscribe((resp: any) => {
+    this.employeeService.getEmployeeByName(termino).subscribe((resp: any) => {
       this.processEmployeesResponse(resp);
     });
   }

@@ -27,6 +27,15 @@ export class EmployeeService {
       return this.http.get(endpoint);
     }
     /**
+    * 
+    * @param id 
+    * @returns 
+    */
+    getEmployeeByName(name : any){
+      const endpoint = `${base_url}/employees/filter/${name}`;
+      return this.http.get(endpoint);
+    }
+    /**
      * 
      * @param body 
      * @returns employee
