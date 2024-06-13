@@ -6,7 +6,7 @@ import {
   SimpleSnackBar,
 } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
-import { EmployeeService } from 'src/app/modules/shared/services/employee.service';
+import { EmpleadoService } from 'src/app/modules/shared/services/employee.service';
 import { NewEmployeeComponent } from '../new-employee/new-employee.component';
 import { ConfirmComponent } from 'src/app/modules/shared/components/confirm/confirm.component';
 import { MatPaginator } from '@angular/material/paginator';
@@ -17,7 +17,7 @@ import { MatPaginator } from '@angular/material/paginator';
   styleUrls: ['./employee.component.css'],
 })
 export class EmployeeComponent implements OnInit {
-  private employeeService = inject(EmployeeService);
+  private employeeService = inject(EmpleadoService);
   private snackBar = inject(MatSnackBar);
   public dialog = inject(MatDialog);
 
@@ -54,7 +54,7 @@ export class EmployeeComponent implements OnInit {
     const dataEmployee: EmployeeElement[] = [];
 
     if (resp.metadata[0].code === '00') {
-      let employeeList = resp.empleadoResponse.empleado;
+      let employeeList = resp.empleadoResponse.empleados;
 
       employeeList.forEach((element: EmployeeElement) => {
         dataEmployee.push(element);
@@ -107,7 +107,7 @@ export class EmployeeComponent implements OnInit {
   delete(id: any) {
     const dialogRef = this.dialog.open(ConfirmComponent, {
       width: '350px',
-      data: { id: id },
+      data: { id: id, module: "employee" },
     });
 
     dialogRef.afterClosed().subscribe((result: any) => {
@@ -125,12 +125,16 @@ export class EmployeeComponent implements OnInit {
 
   buscar(termino: string) {
     if (termino.length === 0) {
-      return this.getEmployees();
+      this.getEmployees();
+      return;
     }
-    this.employeeService.getEmployeeByName(termino).subscribe((resp: any) => {
-      this.processEmployeesResponse(resp);
-    });
+    this.employeeService.getEmployeeByName(termino).subscribe(
+      (resp: any) => {
+          this.processEmployeesResponse(resp);
+      }
+    );
   }
+
 
   openSnackBar(
     message: string,

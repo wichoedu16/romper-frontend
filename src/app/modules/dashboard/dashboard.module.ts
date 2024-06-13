@@ -3,7 +3,12 @@ import { CommonModule } from '@angular/common';
 import { DashboardComponent } from './pages/dashboard.component';
 import { HomeComponent } from './components/home/home.component';
 import { SharedModule } from '../shared/shared.module';
-import { EmployeeModule } from '../employee/employee.module';
+import { EmployeeModule } from '../empleado/employee.module';
+import { DepartamentModule } from '../departamento/departament.module';
+import { CargoModule } from '../cargo/cargo.module';
+import { RecetaModule } from '../receta/receta.module';
+import { IngredienteModule } from '../ingrediente/ingrediente.module';
+import { ProveedorModule } from '../proveedor/proveedor.module';
 
 
 
@@ -15,7 +20,12 @@ import { EmployeeModule } from '../employee/employee.module';
   imports: [
     CommonModule,
     SharedModule,
-    EmployeeModule
+    EmployeeModule,
+    DepartamentModule,
+    CargoModule,
+    RecetaModule,
+    IngredienteModule,
+    ProveedorModule
   ]
 })
 export class DashboardModule { }

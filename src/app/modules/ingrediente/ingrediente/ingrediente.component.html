@@ -1,0 +1,69 @@
+<mat-card>
+    <h2 class="alinearC">Lista de Ingredientes</h2>
+    <mat-card-header>
+        <div class="panelBusqueda">
+            <mat-form-field class="example-full-width" hintLabel="Buscar ingredientes" appearance="fill">
+                <mat-label>Nombre</mat-label>
+                <input matInput #nombre (keyup)="buscar(nombre.value)">
+            </mat-form-field>
+        </div>
+    </mat-card-header>
+
+    <mat-card-header>
+        <div class="alinearD">
+            <button mat-raised-button color="primary" (click)="openIngredienteDialog()">Agregar Ingrediente</button>
+        </div>
+    </mat-card-header>
+
+    <mat-card-content>
+        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+            <!-- id column-->
+            <ng-container matColumnDef="id">
+                <th mat-header-cell *matHeaderCellDef> Nº</th>
+                <td mat-cell *matCellDef="let element"> {{ element.id }}</td>
+            </ng-container>
+
+            <!-- nombre column -->
+            <ng-container matColumnDef="nombre">
+                <th mat-header-cell *matHeaderCellDef> Nombre </th>
+                <td mat-cell *matCellDef="let element"> {{ element.nombre }}</td>
+            </ng-container>
+
+            <!-- nombre column -->
+            <ng-container matColumnDef="costo">
+                <th mat-header-cell *matHeaderCellDef> Costo </th>
+                <td mat-cell *matCellDef="let element"> {{ element.costo | currency:'USD':'symbol':'1.2-2'  }}</td>
+            </ng-container>
+
+            <!-- estado column -->
+            <ng-container matColumnDef="pvp">
+                <th mat-header-cell *matHeaderCellDef> PVP </th>
+                <td mat-cell *matCellDef="let element"> {{ element.pvp | currency:'USD':'symbol':'1.2-2' }}</td>
+            </ng-container>
+
+            <!-- estado column -->
+            <ng-container matColumnDef="unidad">
+                <th mat-header-cell *matHeaderCellDef> Unidad</th>
+                <td mat-cell *matCellDef="let element"> {{ element.unidad }}</td>
+            </ng-container>
+
+            <!-- acciones column -->
+            <ng-container matColumnDef="actions">
+                <th mat-header-cell *matHeaderCellDef> Acciones</th>
+                <td mat-cell *matCellDef="let element">
+                    <button mat-icon-button color="primary" (click)="edit(element)">
+                        <mat-icon aria-label="Edit">edit</mat-icon>
+                    </button>
+                    <button mat-icon-button color="warn" (click)="delete(element.id)">
+                        <mat-icon aria-label="Delete">delete</mat-icon>
+                    </button>
+                </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+
+        <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+    </mat-card-content>
+</mat-card>

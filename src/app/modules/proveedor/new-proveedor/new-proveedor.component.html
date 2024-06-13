@@ -1,0 +1,32 @@
+<h1 mat-dialog-title> {{ estadoFormulario }} Departamento</h1>
+    <mat-dialog-content>
+
+        <form [formGroup]="proveedorForm">
+            <div class="category-container">
+                <mat-form-field appearance="fill" class="field">
+                    <mat-label>Nombre Empres</mat-label>
+                    <input matInput placeholder="Empresa" formControlName="empresa" />
+                </mat-form-field>
+                <mat-form-field appearance="fill" class="field">
+                    <mat-label>Nombre Contacto</mat-label>
+                    <input matInput placeholder="Nombre" formControlName="nombre" />
+                </mat-form-field>
+                <mat-form-field appearance="fill" class="field">
+                    <mat-label>Teléfono Contacto</mat-label>
+                    <input matInput placeholder="Teléfono" formControlName="contacto" />
+                </mat-form-field>
+                
+            </div>
+        </form>
+    </mat-dialog-content>
+
+    <mat-dialog-actions>
+        <button mat-button color="primary" (click)="onSave()" [disabled]="proveedorForm.invalid">
+            <mat-icon>save</mat-icon>Guardar
+        </button>
+
+        <button mat-button color="warn" (click)="onCancel()">
+            <mat-icon>cancel</mat-icon>Cancelar
+        </button>
+
+    </mat-dialog-actions>

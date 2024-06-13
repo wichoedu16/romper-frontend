@@ -6,7 +6,7 @@ const base_url = "http://localhost:8080/api/v1"
 @Injectable({
   providedIn: 'root'
 })
-export class EmployeeService {
+export class EmpleadoService {
 
   constructor(private http: HttpClient) { } 
     /**
@@ -14,7 +14,7 @@ export class EmployeeService {
      * @returns get all employees
      */
     getEmployees(){
-      const endpoint = `${base_url}/employees`;
+      const endpoint = `${base_url}/empleados`;
       return this.http.get(endpoint);
     }
     /**
@@ -23,7 +23,7 @@ export class EmployeeService {
     * @returns 
     */
     getEmployeeById(id : any){
-      const endpoint = `${base_url}/employees/${id}`;
+      const endpoint = `${base_url}/empleados/${id}`;
       return this.http.get(endpoint);
     }
     /**
@@ -32,7 +32,7 @@ export class EmployeeService {
     * @returns 
     */
     getEmployeeByName(name : any){
-      const endpoint = `${base_url}/employees/filter/${name}`;
+      const endpoint = `${base_url}/empleados/filter/${name}`;
       return this.http.get(endpoint);
     }
     /**
@@ -41,7 +41,7 @@ export class EmployeeService {
      * @returns employee
      */
     saveEmployee(body:any){
-      const endpoint = `${base_url}/employees`;
+      const endpoint = `${base_url}/empleados`;
       return this.http.post(endpoint, body);
     }
     /**
@@ -51,7 +51,7 @@ export class EmployeeService {
      * @returns 
      */
     updateEmployee(body: any, id: any){
-      const endpoint = `${base_url}/employees/${id}`;
+      const endpoint = `${base_url}/empleados/${id}`;
       return this.http.put(endpoint, body);
     }
 
@@ -61,7 +61,7 @@ export class EmployeeService {
      * @returns 
      */
     deleteEmployee(id: any){
-      const endpoint = `${base_url}/employees/${id}`;
+      const endpoint = `${base_url}/empleados/${id}`;
       return this.http.delete(endpoint);
     }
 }

@@ -144,10 +144,16 @@
                                 <mat-option value="I">Inactivo</mat-option>
                             </mat-select>
                         </mat-form-field>
+                        
                         <mat-form-field appearance="fill" class="field">
                             <mat-label>Cargo</mat-label>
-                            <input matInput formControlName="cargo">
+                            <mat-select formControlName="cargoId">
+                                <mat-option *ngFor="let cargo of cargos" [value]="cargo.id">
+                                    {{cargo.descripcion}}
+                                </mat-option>
+                            </mat-select>
                         </mat-form-field>
+
                         <mat-form-field appearance="fill" class="field">
                             <mat-label>Salario</mat-label>
                             <input matInput type="number" placeholder="0" formControlName="salario">

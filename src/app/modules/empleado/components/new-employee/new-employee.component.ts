@@ -2,26 +2,37 @@ import { DatePipe } from '@angular/common';
 import { Component, OnInit, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { EmployeeService } from 'src/app/modules/shared/services/employee.service';
+import { CargoService } from 'src/app/modules/shared/services/cargo.service';
+import { EmpleadoService } from 'src/app/modules/shared/services/employee.service';
+
+export interface Cargo {
+  id:number,
+  descripcion: String,
+  codigo: String
+}
 
 @Component({
   selector: 'app-new-employee',
   templateUrl: './new-employee.component.html',
   styleUrls: ['./new-employee.component.css'],
 })
+
 export class NewEmployeeComponent implements OnInit {
   public dateFormatter = inject(DatePipe);
   public data = inject(MAT_DIALOG_DATA);
   public employeeForm!: FormGroup;
   private fb = inject(FormBuilder);
-  private employeeService = inject(EmployeeService);
+  private employeeService = inject(EmpleadoService);
+  private cargoService = inject(CargoService);
   private dialogRef = inject(MatDialogRef);
   
 
   estadoFormulario: string = '';
+  cargos: Cargo[] = [];
 
   ngOnInit(): void {
     this.estadoFormulario = 'Agregar';
+    this.getCargos(); 
 
     this.employeeForm = this.fb.group({
       cedula: ['', Validators.required],
@@ -46,6 +57,7 @@ export class NewEmployeeComponent implements OnInit {
       salario: ['', Validators.required],
       usuario: ['', Validators.required],
       estado: ['', Validators.required],
+      cargoId: ['', Validators.required],
       correoInstitucional: ['', Validators.required],
     });
 
@@ -85,12 +97,12 @@ export class NewEmployeeComponent implements OnInit {
       salario: this.employeeForm.get('salario')?.value,
       sexo: this.employeeForm.get('sexo')?.value,
       telefono: this.employeeForm.get('telefono')?.value,
+      cargoId: this.employeeForm.get('cargoId')?.value,
       titulo: this.employeeForm.get('titulo')?.value
     };
-    console.log('entrando a updateForm', data);
 
     if (this.data != null) {
-      //update registry
+      //actualizar nuevo registro
       this.employeeService.updateEmployee(data, this.data.id).subscribe(
         (data: any) => {
           this.dialogRef.close(1);
@@ -100,7 +112,7 @@ export class NewEmployeeComponent implements OnInit {
         }
       );
     } else {
-      //create new registry
+      //crear nuevo registro
       this.employeeService.saveEmployee(data).subscribe(
         (data: any) => {
           console.log(data);
@@ -121,4 +133,16 @@ export class NewEmployeeComponent implements OnInit {
   updateForm(data: any) {
     this.employeeForm.patchValue(data);
   }
+
+  getCargos(){
+    this.cargoService.getAll().subscribe(
+      (data: any) => {
+        this.cargos = data.cargoResponse.cargos;
+      },
+      (error: any) => {
+        console.log('Error al consultar cargos en crear empleado');
+      }
+    );
+  }
+
 }
