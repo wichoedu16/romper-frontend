@@ -10,6 +10,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { ConfirmComponent } from '../../shared/components/confirm/confirm.component';
 import { NewProveedorComponent } from '../new-proveedor/new-proveedor.component';
+import { UtilService } from '../../shared/services/util.service';
 
 @Component({
   selector: 'app-proveedor',
@@ -17,12 +18,15 @@ import { NewProveedorComponent } from '../new-proveedor/new-proveedor.component'
   styleUrls: ['./proveedor.component.css'],
 })
 export class ProveedorComponent implements OnInit {
+  esAdministrador : any;
   private proveedorService = inject(ProveedorService);
   private snackBar = inject(MatSnackBar);
   public dialog = inject(MatDialog);
+  private util = inject(UtilService);
 
   ngOnInit(): void {
     this.buscarProveedores();
+    this.esAdministrador = this.util.validarAdministrador();
   }
   displayedColumns: string[] = ['id', 'empresa', 'nombre', 'contacto', 'actions'];
 
