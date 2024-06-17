@@ -28,7 +28,6 @@ export class NewIngredienteComponent implements OnInit {
       nombre: ['', Validators.required],
       cantidad: ['', Validators.required],
       costo: ['', Validators.required],
-      pvp: ['', Validators.required],
       unidad: ['', Validators.required],
       proveedorId: ['', Validators.required],
     });
@@ -43,7 +42,6 @@ export class NewIngredienteComponent implements OnInit {
       nombre: this.ingredienteForm.get('nombre')?.value,
       cantidad: this.ingredienteForm.get('cantidad')?.value,
       costo: this.ingredienteForm.get('costo')?.value,
-      pvp: this.ingredienteForm.get('pvp')?.value,
       unidad: this.ingredienteForm.get('unidad')?.value,
       proveedorId: this.ingredienteForm.get('proveedorId')?.value,
     };

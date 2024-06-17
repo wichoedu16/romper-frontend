@@ -58,7 +58,7 @@ export class RecetaComponent implements OnInit {
     const dataReceta: RecetaElement[] = [];
 
     if (resp.metadata[0].code === '00') {
-      let recetaList = resp.recetaResponse.recetas;
+      let recetaList = resp.platoResponse.platos;
 
       if (recetaList.length === 0) {
         this.noResultsMessage = 'No se encontraron resultados';
@@ -83,10 +83,10 @@ export class RecetaComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result: any) => {
       if (result == 1) {
-        this.openSnackBar('Receta Agregada', 'Exito');
+        this.openSnackBar('Plato Agregado', 'Exito');
         this.getRecetas();
       } else if (result == 2) {
-        this.openSnackBar('Se produjo un error al guardar la receta', 'Error');
+        this.openSnackBar('Se produjo un error al guardar el plato', 'Error');
       }
     });
   }
@@ -99,11 +99,11 @@ export class RecetaComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result: any) => {
       if (result == 1) {
-        this.openSnackBar('Receta Actualizada', 'Exito');
+        this.openSnackBar('Plato Actualizada', 'Exito');
         this.getRecetas();
       } else if (result == 2) {
         this.openSnackBar(
-          'Se produjo un error al actualizar la receta',
+          'Se produjo un error al actualizar el plato',
           'Error'
         );
       }
@@ -118,11 +118,11 @@ export class RecetaComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result: any) => {
       if (result == 1) {
-        this.openSnackBar('Receta Actualizada', 'Exito');
+        this.openSnackBar('Plato Actualizada', 'Exito');
         this.getRecetas();
       } else if (result == 2) {
         this.openSnackBar(
-          'Se produjo un error al actualizar la receta',
+          'Se produjo un error al actualizar el plato',
           'Error'
         );
       }

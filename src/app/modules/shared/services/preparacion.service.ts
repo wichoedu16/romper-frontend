@@ -14,4 +14,10 @@ export class PreparacionService {
     const endpoint = `${base_url}/preparaciones`;
     return this.http.post(endpoint, body);
   }
+
+  buscarPorPlatoId(id : any){
+    const endpoint = `${base_url}/preparaciones/plato/${id}`;
+    return this.http.get(endpoint, id);
+  }
+
 }

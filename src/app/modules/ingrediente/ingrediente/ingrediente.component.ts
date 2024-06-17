@@ -21,7 +21,7 @@ export class IngredienteComponent implements OnInit {
     this.obtenerIngredientes();
   }
 
-  displayedColumns: string[] = ['id', 'nombre', 'costo', 'pvp', 'unidad', 'actions'];
+  displayedColumns: string[] = ['id', 'nombre', 'costo', 'cantidad', 'unidad', 'actions'];
 
   dataSource = new MatTableDataSource<IngredienteElement>();
   @ViewChild(MatPaginator)

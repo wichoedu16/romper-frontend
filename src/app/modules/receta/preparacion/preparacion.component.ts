@@ -20,26 +20,39 @@ export class PreparacionComponent implements OnInit {
   nombreProducto: string = '';
   idPlato: string = '';
   ingredientes: Ingrediente[] = [];
+  preparacion: Preparacion[] = [];
 
   ngOnInit(): void {
     this.obtenerIngredientes();
+
     this.preparacionForm = this.fb.group({
       ingredientes: this.fb.array([]) 
     });
 
     if (this.data != null) {
-      this.llenarDatosReceta(this.data);
       this.nombreProducto = this.data.nombre;
       this.idPlato = this.data.id;
     }
-
-    this.addIngrediente(); 
+  }
+  
+  buscarIngredientesPorPlato(data: any) {
+    this.preparacionService.buscarPorPlatoId(data.id).subscribe(
+      (response: any) => {
+        this.preparacion = response.preparacionResponse.preparaciones;
+        this.llenarDatosReceta(response.preparacionResponse);
+      },
+      (error: any) => {
+        console.error('ERROR EN PLATO: ', error);
+      }
+    );
   }
 
   obtenerIngredientes() {
     this.ingredienteService.buscarTodos().subscribe(
-      (data: any) => {
-        this.ingredientes = data.ingredienteResponse.ingredientes;
+      (response: any) => {
+        this.ingredientes = response.ingredienteResponse.ingredientes;
+        this.buscarIngredientesPorPlato(this.data); 
+        console.log(this.data)
       },
       (error: any) => {
         console.log('error: ', error);
@@ -63,13 +76,18 @@ export class PreparacionComponent implements OnInit {
   }
 
   llenarDatosReceta(data: any) {
-    const ingredientes = data.ingredientes || [];
     this.preparacionForm.patchValue({ nombreProducto: data.nombreProducto });
 
-    ingredientes.forEach((ing: any) => {
+    data.preparaciones.forEach((prep: any) => {
+      const ingrediente = this.ingredientes.find(ing => ing.id === prep.ingrediente.id);
+      const ingredienteNombre = ingrediente ? ingrediente.nombre : '';
+      
+      console.log(prep)
+     
       this.ingredientesArray.push(this.fb.group({
-        ingredienteId: [ing.ingrediente.id, Validators.required],
-        cantidad: [ing.cantidad, Validators.required]
+        ingredienteId: [prep.ingredienteId, Validators.required],
+        cantidad: [prep.cantidad, Validators.required],
+        nombre: [ingredienteNombre]
       }));
     });
   }
@@ -82,7 +100,7 @@ export class PreparacionComponent implements OnInit {
         ingredienteId: ingrediente.ingredienteId,
         cantidad: ingrediente.cantidad,
         nombreProducto: this.nombreProducto,
-        recetaId: this.idPlato
+        platoId: this.idPlato
       };
   
       this.preparacionService.crear(data).subscribe(
@@ -94,15 +112,19 @@ export class PreparacionComponent implements OnInit {
         }
       );
     });
-  
-    // Cierra el diálogo después de intentar guardar todos los ingredientes
+
     this.dialogRef.close(1);
   }
-  
 
   onCancel() {
     this.dialogRef.close(3);
   }
+}
+
+export interface Preparacion {
+  plato: string;
+  ingrediente: string;
+  cantidad: string;
 }
 
 export interface Ingrediente {
@@ -110,8 +132,6 @@ export interface Ingrediente {
   cantidad: string;
   costo: string;
   nombre: string;
-  salario: any;
-  departamento: any;
 }
 
 export interface Receta {
