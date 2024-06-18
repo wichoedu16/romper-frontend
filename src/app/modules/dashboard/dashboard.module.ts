@@ -9,6 +9,7 @@ import { CargoModule } from '../cargo/cargo.module';
 import { RecetaModule } from '../receta/receta.module';
 import { IngredienteModule } from '../ingrediente/ingrediente.module';
 import { ProveedorModule } from '../proveedor/proveedor.module';
+import { MaterialModule } from '../shared/material.module';
 
 
 
@@ -20,6 +21,7 @@ import { ProveedorModule } from '../proveedor/proveedor.module';
   imports: [
     CommonModule,
     SharedModule,
+    MaterialModule,
     EmployeeModule,
     DepartamentModule,
     CargoModule,

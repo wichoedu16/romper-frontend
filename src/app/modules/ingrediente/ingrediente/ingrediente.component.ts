@@ -133,6 +133,8 @@ export class IngredienteComponent implements OnInit {
 export interface IngredienteElement {
   id: number;
   codigo:string;
-  descripcion: string;
-  estado: string;
+  nombre: string;
+  unidad: string;
+  cantidad: number;
+  costo: number
 }
