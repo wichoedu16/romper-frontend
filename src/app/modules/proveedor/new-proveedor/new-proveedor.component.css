@@ -4,53 +4,47 @@ h1 {
     border-bottom: 2px solid #142d42;
     width: fit-content;
     margin-bottom: 20px;
+    align-content: center;
   }
-  
-  .category-container {
-    font-size: small;
-    display: flex;
-    flex-direction: column;
-    gap: 5px; /* Espacio entre secciones */
-  }
-  
-  .section {
-    border: 1px solid #142d42;
-    padding: 5px;
-    border-radius: 5px;
-    background-color: #f9f9f9;
-  }
-  
-  .section h2 {
+
+h2 {
     font-size: 16px;
     color: #142d42;
-    border-bottom: 1px solid #142d42;
-    padding-bottom: 2px;
-    margin-bottom: 2px;
+    border-bottom: 2px solid #142d42;
+    width: fit-content;
+    margin-bottom: 20px;
   }
-  
-  .fields-row {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    gap: 5px;
-    /* Espacio entre campos */
-  }
-  
-  .field {
-    flex: 0 1 45%;
-    /* Los campos ocuparán el 45% del ancho del contenedor */
-    padding: 2px;
-  }
-  
-  .field.full-width {
-    flex: 1 1 100%;
-    /* Este campo ocupará el 100% del ancho del contenedor */
-  }
-  
-  .field:not(:last-child) {
-    margin-bottom: 10px;
-  }
-  
-  .category-container>* {
-    width: 100%;
-  }
+
+.category-container {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.field {
+  flex: 4;
+}
+
+.field-telefono {
+  flex: 1;
+  margin-right: 10px;
+  text-align: right;
+}
+
+.personal-info {
+  margin-bottom: 24px;
+}
+
+.bank-info {
+  margin-top: 24px;
+}
+
+.mat-dialog-content {
+  padding: 16px;
+}
+
+.mat-dialog-actions {
+  justify-content: flex-end;
+  padding: 16px;
+}

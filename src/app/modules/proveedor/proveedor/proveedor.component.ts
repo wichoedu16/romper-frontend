@@ -71,7 +71,7 @@ export class ProveedorComponent implements OnInit {
     }
   }
 
-  openProveedorDialog() {
+  abirDialogo() {
     const dialogRef = this.dialog.open(NewProveedorComponent, {
       width: '700px',
     });
@@ -127,6 +127,7 @@ export class ProveedorComponent implements OnInit {
     });
   }
 }
+
 export interface ProveedorElement {
   id: number;
   empresa: string;

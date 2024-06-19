@@ -24,6 +24,14 @@ export class NewProveedorComponent implements OnInit {
       empresa: ['', Validators.required],
       nombre: ['', Validators.required],
       contacto: ['', Validators.required],
+      //datos de pago
+      banco: ['', Validators.required],
+      numerCuenta: ['', Validators.required],
+      tipoCuenta: ['', Validators.required],
+      nombreCuenta: ['', Validators.required],
+      cedulaCuenta: ['', Validators.required],
+      correoCuenta: [''],
+      telefonoCuenta: [''],
     });
     if (this.data != null) {
       this.updateForm(this.data);
@@ -36,6 +44,13 @@ export class NewProveedorComponent implements OnInit {
       empresa: this.proveedorForm.get('empresa')?.value,
       nombre: this.proveedorForm.get('nombre')?.value,
       contacto: this.proveedorForm.get('contacto')?.value,
+      banco: this.proveedorForm.get('contacto')?.value,
+      numerCuenta: this.proveedorForm.get('numeroCuenta')?.value,
+      tipoCuenta: this.proveedorForm.get('tipoCuenta')?.value,
+      nombreCuenta: this.proveedorForm.get('nombreCuenta')?.value,
+      cedulaCuenta: this.proveedorForm.get('cedulaCuenta')?.value,
+      correoCuenta: this.proveedorForm.get('correoCuenta')?.value,
+      telefonoCuenta: this.proveedorForm.get('telefonoCuenta')?.value,
     };
 
     if (this.data != null) {

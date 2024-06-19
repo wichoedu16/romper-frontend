@@ -52,7 +52,6 @@ export class PreparacionComponent implements OnInit {
       (response: any) => {
         this.ingredientes = response.ingredienteResponse.ingredientes;
         this.buscarIngredientesPorPlato(this.data); 
-        console.log(this.data)
       },
       (error: any) => {
         console.log('error: ', error);

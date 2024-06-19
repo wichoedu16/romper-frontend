@@ -16,8 +16,22 @@ export class VentaService {
     return this.http.get(endpoint);
   }
 
+  buscarPorFechas(fechaDesde:string, fechaHasta:string){
+    const endpoint = `${base_url}/ventas/filtro/${fechaDesde}/${fechaHasta}`;
+    return this.http.get(endpoint);
+  }
+
   crear(body:any){
     const endpoint = `${base_url}/ventas`;
     return this.http.post(endpoint, body);
   }
+
+  exportarExcel() {
+    const endpoint = `${base_url}/ventas/exportar/excel`;
+    return this.http.get(endpoint, {
+      responseType: 'blob'
+    });
+  }
+
+
 }

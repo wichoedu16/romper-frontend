@@ -36,6 +36,9 @@ export class CargoComponent implements OnInit {
     }
     this.cargoService.getByName(termino).subscribe((resp: any) => {
       this.processCargosResponse(resp);
+    },
+    (error: any) => {
+      console.log('error: ', error);
     });
   }
 

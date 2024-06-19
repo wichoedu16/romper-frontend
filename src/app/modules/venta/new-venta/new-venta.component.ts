@@ -20,6 +20,7 @@ export class NewVentaComponent implements OnInit {
   private dialogRef = inject(MatDialogRef);
 
   platos: Receta[] = [];
+  totalVenta: number = 0;
 
   ngOnInit(): void {
     this.obtenerPlatos();
@@ -46,7 +47,8 @@ export class NewVentaComponent implements OnInit {
   addPlato(): void {
     const platoForm = this.fb.group({
       platoId: ['', Validators.required],
-      cantidad: ['', [Validators.required, Validators.min(1)]],
+      precio: [{ value: '', disabled: true }],
+      cantidad: [1, [Validators.required, Validators.min(1)]],
       total: [{ value: '', disabled: true }]
     });
 
@@ -63,32 +65,53 @@ export class NewVentaComponent implements OnInit {
 
   removePlato(index: number): void {
     this.platosArray.removeAt(index);
+    this.updateTotalVenta();
   }
 
   calculateTotal(platoForm: FormGroup): void {
     const cantidad = platoForm.get('cantidad')!.value;
     const platoId = platoForm.get('platoId')!.value;
     const selectedPlato = this.platos.find(plato => plato.id === platoId);
-    if (cantidad && selectedPlato) {
-      const total = cantidad * selectedPlato.pvp;
-      platoForm.get('total')!.setValue(total);
+    if (selectedPlato){
+      platoForm.get('precio')!.setValue(selectedPlato.pvp);
     }
+    if (cantidad && selectedPlato?.pvp) {
+      const total = cantidad * selectedPlato?.pvp;
+      platoForm.get('total')!.setValue(total);
+    } else {
+      platoForm.get('total')!.setValue(0);
+    }
+    this.updateTotalVenta();
+  }
+    
+  updateTotalVenta(): void {
+    this.totalVenta = this.platosArray.controls.reduce((acc, control) => {
+      return acc + (control.get('total')!.value || 0);
+    }, 0);
   }
 
   onSave() {
-    if (this.ventaForm.valid) {
-      const formData = this.ventaForm.getRawValue();
-      // Adjust the payload if needed before sending to the backend
-      this.ventaService.crear(formData).subscribe(
+    const platos = this.ventaForm.value.platos;
+
+    platos.forEach((plato: any) => {
+      const data = {
+        platoId: plato.platoId,
+        cantidad: plato.cantidad,
+        precio: plato.precio,
+        total: plato.total
+      };
+
+      this.ventaService.crear(data).subscribe(
         response => {
-          console.log('Venta creada:', response);
-          this.dialogRef.close(formData);
+          console.log('Plato guardado:', response);
         },
         error => {
-          console.error('Error al crear la venta:', error);
+          console.error('Error al guardar el plato:', error);
         }
       );
-    }
+    });
+
+    this.dialogRef.close(1);
   }
 
   onCancel() {
