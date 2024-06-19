@@ -10,6 +10,8 @@ import { RecetaModule } from '../receta/receta.module';
 import { IngredienteModule } from '../ingrediente/ingrediente.module';
 import { ProveedorModule } from '../proveedor/proveedor.module';
 import { MaterialModule } from '../shared/material.module';
+import { VentaComponent } from '../venta/venta/venta.component';
+import { VentaModule } from '../venta/venta.module';
 
 
 
@@ -27,7 +29,8 @@ import { MaterialModule } from '../shared/material.module';
     CargoModule,
     RecetaModule,
     IngredienteModule,
-    ProveedorModule
+    ProveedorModule,
+    VentaModule
   ]
 })
 export class DashboardModule { }

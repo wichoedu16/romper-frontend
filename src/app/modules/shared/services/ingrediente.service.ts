@@ -38,4 +38,11 @@ export class IngredienteService {
     const endpoint = `${base_url}/ingredientes/${id}`;
     return this.http.delete(endpoint);
   }
+
+  exportarExcel() {
+    const endpoint = `${base_url}/ingredientes/exportar/excel`;
+    return this.http.get(endpoint, {
+      responseType: 'blob'
+    });
+  }
 }

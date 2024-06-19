@@ -137,4 +137,5 @@ export interface Ingrediente {
 export interface Receta {
   id: number;
   nombre: String;
+  pvp: number;
 }

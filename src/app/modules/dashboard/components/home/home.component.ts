@@ -13,6 +13,8 @@ export class HomeComponent implements OnInit{
   private ingredienteService = inject(IngredienteService);
   
   chartBar: any;
+  chartDoughnut: any;
+  chartPolarArea: any;
 
   ngOnInit(): void { 
     this.obtenerIngredientes();
@@ -44,6 +46,28 @@ export class HomeComponent implements OnInit{
       //grafico de barras
       this.chartBar = new Chart('canvas-bar', {
         type: 'bar',
+        data: {
+          labels: nombreIngrediente,
+          datasets: [
+            {label: 'Ingredientes', data: cantidadIngrediente}
+          ]
+        }
+      });
+
+      //grafico de polarArea
+       this.chartPolarArea = new Chart('canvas-polarArea', {
+        type: 'polarArea',
+        data: {
+          labels: nombreIngrediente,
+          datasets: [
+            {label: 'Ingredientes', data: cantidadIngrediente}
+          ]
+        }
+      });
+
+       //grafico de doughnut
+      this.chartDoughnut = new Chart('canvas-doughnut', {
+        type: 'doughnut',
         data: {
           labels: nombreIngrediente,
           datasets: [

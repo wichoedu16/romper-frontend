@@ -129,6 +129,22 @@ export class IngredienteComponent implements OnInit {
       }
     });
   }
+
+  exportarExcel(){
+    this.ingredienteService.exportarExcel().subscribe((data:any) =>{
+      let file = new Blob([data], {type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
+      let fileUrl = URL.createObjectURL(file);
+      var anchor = document.createElement("a");
+      anchor.download = "ingredientes.xlsx";
+      anchor.href = fileUrl;
+      anchor.click();
+
+      this.openSnackBar("Archivo descargado correctamente", "Exitosa");
+    }, (error: any)  =>{
+      this.openSnackBar("No se puede descargar", "Error");
+    }
+    )
+  }
 }
 export interface IngredienteElement {
   id: number;

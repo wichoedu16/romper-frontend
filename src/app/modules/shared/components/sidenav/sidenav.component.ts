@@ -19,7 +19,7 @@ export class SidenavComponent implements OnInit {
     {name: "Proveedores", route: "proveedor", icon: "tapas"},
     {name: "Ingredientes", route: "ingrediente", icon: "drag_indicator"},
     {name: "Platos", route: "receta", icon: "fastfood"},
-    {name: "Ventas", route: "receta", icon: "add_shopping_cart"},
+    {name: "Ventas", route: "venta", icon: "add_shopping_cart"},
     {name: "Empleados", route: "employee", icon: "person"}   
   ] 
 
