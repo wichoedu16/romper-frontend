@@ -1,12 +1,13 @@
 <mat-card>
     <h2 class="alinearC">Lista de Empleados</h2>
+
     <mat-card-header>
-        <div class="panelBusqueda">
-            <mat-form-field class="example-full-width" hintLabel="Buscar empleados" appearance="fill">
+        <div class="panel-busqueda">
+            <mat-form-field class="field-texto" hintLabel="Buscar empleados" appearance="fill">
                 <mat-label>Nombre | Apellidos</mat-label>
                 <input matInput #nombre (keyup)="buscar(nombre.value)">
             </mat-form-field>
-            <mat-form-field class="example-full-width" hintLabel="Buscar empleados" appearance="fill">
+            <mat-form-field class="field-texto" hintLabel="Buscar empleados" appearance="fill">
                 <mat-label>Identificacion</mat-label>
                 <input matInput #identificacion (keyup)="buscar(identificacion.value)">
             </mat-form-field>
@@ -14,8 +15,10 @@
     </mat-card-header>
 
     <mat-card-header>
-        <div class="alinearD">
-            <button mat-raised-button color="primary" (click)="openEmployeeDialog()">Agregar Empleado</button>
+        <div class="create-panel">
+            <button mat-icon-button color="primary" (click)="openEmployeeDialog()">
+                <mat-icon aria-label="Add new plate">group_add</mat-icon>
+            </button>
         </div>
     </mat-card-header>
 

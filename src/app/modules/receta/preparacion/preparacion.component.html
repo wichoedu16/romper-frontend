@@ -1,20 +1,25 @@
-<h1 mat-dialog-title> {{ nombreProducto }}</h1>
+<h1 class="alinearC"> {{ nombreProducto }}</h1>
 <mat-dialog-content>
   <form [formGroup]="preparacionForm">
     <div formArrayName="ingredientes">
-      <div *ngFor="let ingrediente of ingredientesArray.controls; let i = index" [formGroupName]="i" class="category-container">
-        <mat-form-field appearance="fill" class="field">
+      <div *ngFor="let ingrediente of ingredientesArray.controls; let i = index" [formGroupName]="i" class="form">
+        <mat-form-field appearance="fill" class="field-texto">
           <mat-label>Ingrediente</mat-label>
-          <mat-select formControlName="ingredienteId">
+          <mat-select formControlName="ingredienteId" (selectionChange)="onIngredienteChange(i)">
             <mat-option *ngFor="let ing of ingredientes" [value]="ing.id">
               {{ ing.nombre }}
             </mat-option>
           </mat-select>
         </mat-form-field>
 
-        <mat-form-field appearance="fill" class="field">
+        <mat-form-field appearance="fill" class="field-numeros">
           <mat-label>Cantidad</mat-label>
-          <input matInput type="number" placeholder="0" formControlName="cantidad">
+          <input matInput type="number"  formControlName="cantidad">
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="field-numeros">
+          <mat-label>Medida</mat-label>
+          <input matInput type="text" formControlName="unidad" >
         </mat-form-field>
 
         <button mat-icon-button color="warn" (click)="removeIngrediente(i)">
@@ -30,11 +35,10 @@
 </mat-dialog-content>
 
 <mat-dialog-actions>
-  <button mat-button color="primary" (click)="onSave()" [disabled]="preparacionForm.invalid">
-    <mat-icon>save</mat-icon>Guardar
-  </button>
-
   <button mat-button color="primary" (click)="onCancel()">
     <mat-icon>cancel</mat-icon>Cancelar
+  </button>
+  <button mat-button color="primary" (click)="onSave()" [disabled]="preparacionForm.invalid">
+    <mat-icon>save</mat-icon>Guardar
   </button>
 </mat-dialog-actions>

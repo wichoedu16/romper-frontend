@@ -3,6 +3,7 @@ import { IngredienteService } from '../../shared/services/ingrediente.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ProveedorService } from '../../shared/services/proveedor.service';
+import { ProveedorElement } from '../../proveedor/proveedor/proveedor.component';
 
 @Component({
   selector: 'app-new-ingrediente',
@@ -19,10 +20,10 @@ export class NewIngredienteComponent implements OnInit {
 
   estadoFormulario: string = '';
 
-  proveedores: Proveedor[] = [];
+  proveedores: ProveedorElement[] = [];
 
   ngOnInit(): void {
-    this.estadoFormulario = 'Agregar';
+    this.estadoFormulario = this.data?.estadoFormulario ;
     this.obtenerProveedores();
     this.ingredienteForm = this.fb.group({
       nombre: ['', Validators.required],
@@ -31,13 +32,12 @@ export class NewIngredienteComponent implements OnInit {
       unidad: ['', Validators.required],
       proveedorId: ['', Validators.required],
     });
-    if (this.data != null) {
-      this.updateForm(this.data);
-      this.estadoFormulario = 'Actualizar';
+    if (this.data?.ingrediente) {
+      this.updateForm(this.data.ingrediente);
     }
   }
 
-  onSave() {
+  grabar() {
     const data = {
       nombre: this.ingredienteForm.get('nombre')?.value,
       cantidad: this.ingredienteForm.get('cantidad')?.value,
@@ -47,7 +47,6 @@ export class NewIngredienteComponent implements OnInit {
     };
 
     if (this.data != null) {
-      //actualizar nuevo registro
       this.ingredienteService.actualizar(data, this.data.id).subscribe(
         (data: any) => {
           this.dialogRef.close(1);
@@ -57,7 +56,6 @@ export class NewIngredienteComponent implements OnInit {
         }
       );
     } else {
-      //crear nuevo registro
       this.ingredienteService.crear(data).subscribe(
         (data: any) => {
           console.log(data);
@@ -71,7 +69,7 @@ export class NewIngredienteComponent implements OnInit {
     }
   }
 
-  onCancel() {
+  cancelar() {
     this.dialogRef.close(3);
   }
 
@@ -89,10 +87,4 @@ export class NewIngredienteComponent implements OnInit {
       }
     );
   }
-}
-
-export interface Proveedor {
-  id: number;
-  empresa: String;
-  nombre: String;
 }

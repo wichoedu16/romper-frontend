@@ -22,7 +22,8 @@ export class NewRecetaComponent implements OnInit{
     this.estadoFormulario = 'Nuevo';
     this.recetaForm = this.fb.group({
       nombre: ['', Validators.required],
-      pvp: ['', Validators.required]
+      pvp: ['', Validators.required],
+      estado: ['', Validators.required]
     });
     if (this.data != null) {
       this.updateForm(this.data);
@@ -30,10 +31,11 @@ export class NewRecetaComponent implements OnInit{
     }
   }
 
-  onSave() {
+  grabar() {
     const data = {
       nombre: this.recetaForm.get('nombre')?.value,
-      pvp: this.recetaForm.get('pvp')?.value
+      pvp: this.recetaForm.get('pvp')?.value,
+      estado: this.recetaForm.get('estado')?.value
     };
 
     if (this.data != null) {
@@ -61,7 +63,7 @@ export class NewRecetaComponent implements OnInit{
     }
   }
 
-  onCancel() {
+  cancelar() {
     this.dialogRef.close(3);
   }
 

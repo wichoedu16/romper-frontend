@@ -6,6 +6,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { NewIngredienteComponent } from '../new-ingrediente/new-ingrediente.component';
 import { ConfirmComponent } from '../../shared/components/confirm/confirm.component';
+import { ProveedorElement } from '../../proveedor/proveedor/proveedor.component';
 
 @Component({
   selector: 'app-ingrediente',
@@ -17,11 +18,13 @@ export class IngredienteComponent implements OnInit {
   private snackBar = inject(MatSnackBar);
   public dialog = inject(MatDialog);
   
+  proveedores: ProveedorElement[] = [];
+
   ngOnInit(): void {
     this.obtenerIngredientes();
   }
 
-  displayedColumns: string[] = ['id', 'nombre', 'costo', 'cantidad', 'unidad', 'actions'];
+  displayedColumns: string[] = ['id', 'proveedor', 'nombre', 'unidad', 'actions'];
 
   dataSource = new MatTableDataSource<IngredienteElement>();
   @ViewChild(MatPaginator)
@@ -55,6 +58,7 @@ export class IngredienteComponent implements OnInit {
       let ingredienteList = resp.ingredienteResponse.ingredientes;
 
       ingredienteList.forEach((element: IngredienteElement) => {
+        element.proveedor = element.proveedor.nombreProveedor
         dataIngrediente.push(element);
       });
 
@@ -65,20 +69,18 @@ export class IngredienteComponent implements OnInit {
     }
   }
 
-  openIngredienteDialog() {
+  nuevo() {
     const dialogRef = this.dialog.open(NewIngredienteComponent, {
       width: '500px',
+      data: { estadoFormulario: 'Nuevo'}
     });
 
     dialogRef.afterClosed().subscribe((result: any) => {
       if (result == 1) {
-        this.openSnackBar('Ingrediente agregado', 'Exito');
+        this.openSnackBar('Ingrediente creado', 'Exito');
         this.obtenerIngredientes();
       } else if (result == 2) {
-        this.openSnackBar(
-          'Ingrediente no pudo ser agregado',
-          'Error'
-        );
+        this.openSnackBar('Ingrediente no pudo ser creado', 'Error' );
       }
     });
   }
@@ -92,10 +94,26 @@ export class IngredienteComponent implements OnInit {
     });
   }
 
-  edit(ingrediente: any) {
+  agregar(ingrediente: any) {
     const dialogRef = this.dialog.open(NewIngredienteComponent, {
       width: '700px',
-      data: ingrediente,
+      data: {ingrediente, estadoFormulario: 'Agregar'}
+    });
+
+    dialogRef.afterClosed().subscribe((result: any) => {
+      if (result == 1) {
+        this.openSnackBar('Ingrediente agregado', 'Exito');
+        this.obtenerIngredientes();
+      } else if (result == 2) {
+        this.openSnackBar('No se puede agregar', 'Error');
+      }
+    });
+  }
+
+  editar(ingrediente: any) {
+    const dialogRef = this.dialog.open(NewIngredienteComponent, {
+      width: '700px',
+      data: {ingrediente, estadoFormulario: 'Editar '}
     });
 
     dialogRef.afterClosed().subscribe((result: any) => {
@@ -111,7 +129,7 @@ export class IngredienteComponent implements OnInit {
     });
   }
 
-  delete(id: any) {
+  eliminar(id: any) {
     const dialogRef = this.dialog.open(ConfirmComponent, {
       width: '350px',
       data: { id: id, module: "ingrediente"},
@@ -145,6 +163,7 @@ export class IngredienteComponent implements OnInit {
     }
     )
   }
+  
 }
 export interface IngredienteElement {
   id: number;
@@ -153,4 +172,5 @@ export interface IngredienteElement {
   unidad: string;
   cantidad: number;
   costo: number
+  proveedor: any;
 }

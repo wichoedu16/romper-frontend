@@ -2,7 +2,7 @@
     <h2 class="alinearC">Ventas</h2>
 
     <mat-card-content>
-        <div class="filter-panel">
+        <div class="panel-busqueda">
             <form [formGroup]="filtroForm" (ngSubmit)="filtrarVentas()" class="filtro-form">
                 <mat-form-field appearance="fill">
                     <mat-label>Fecha Inicial</mat-label>
@@ -24,15 +24,13 @@
             </form>
         </div>
 
-        <div class="create-panel">
-            <button mat-icon-button color="primary" (click)="openVentaDialog()" title="Nueva Venta">
-                <mat-icon aria-label="Edit">add_shopping_cart</mat-icon>
-            </button>
-            <button mat-icon-button color="primary" (click)="bajarReporteVentas()" title="Bajar Reporte">
-                <mat-icon aria-label="Edit">download</mat-icon>
-            </button>
-        </div>
-
+        <mat-card-content>
+            <div class="create-panel">
+                <button mat-icon-button color="primary" (click)="openVentaDialog()" title="Nueva Venta">
+                    <mat-icon aria-label="Edit">add_shopping_cart</mat-icon>
+                </button>
+            </div>
+        </mat-card-content>
         <div class="table-panel">
             <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
                 <ng-container matColumnDef="id">
@@ -71,9 +69,16 @@
 
             <mat-paginator [pageSizeOptions]="[10, 20, 30]" showFirstLastButtons></mat-paginator>
         </div>
-        
+
         <div *ngIf="totalVentas !== undefined" class="total-panel">
             <p>Total de Ventas: {{ totalVentas | currency }}</p>
-      </div>
+        </div>
+    </mat-card-content>
+    <mat-card-content>
+        <div class="create-panel">
+            <button mat-icon-button color="primary" (click)="bajarReporteVentas()" title="Bajar Reporte">
+                <mat-icon aria-label="Edit">download</mat-icon>
+            </button>
+        </div>
     </mat-card-content>
 </mat-card>

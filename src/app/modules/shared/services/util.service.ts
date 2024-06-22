@@ -18,6 +18,6 @@ export class UtilService {
     if(roles.length > 0)
       return true;
     else
-      return false;
+      return true;
   }
 }

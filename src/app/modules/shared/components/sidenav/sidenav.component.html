@@ -1,9 +1,7 @@
 <div class="dashboard-container" [class.is-mobile]="mobileQuery.matches">
-
-
     <mat-toolbar color="primary" class="dashboard-toolbar">
         <button mat-icon-button (click)="snav.toggle()"><mat-icon>menu</mat-icon> </button>
-        <h1 class="app-name"></h1>
+        <h1 class="app-name">Negsotel S.A.</h1>
 
         <div class="right">
             <ul>
@@ -27,33 +25,32 @@
         </div>
     </mat-toolbar>
 
-    <mat-sidenav-container class="sidenav-container" [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
-        <mat-sidenav #snav [mode]="mobileQuery.matches ? 'over' : 'side' " [fixedInViewport]="mobileQuery.matches"
+    <mat-sidenav-container class="sidenav-container" [style.marginTop.px]="mobileQuery.matches ? 56 : 0" >
+        <mat-sidenav #snav [mode]="mobileQuery.matches ? 'over' : 'side' " 
+            [fixedInViewport]="mobileQuery.matches"
             fixedTopGap="56">
             <mat-nav-list>
                 <div class="profile-card">
                     <div class="header">
-                        <h3>{{ userName.toUpperCase() }}</h3>
+                        <h3> {{ userName.toUpperCase() }}</h3>
                     </div>
                 </div>
 
                 <mat-divider></mat-divider>
 
                 <a mat-list-item [routerLink]="nav.route" *ngFor="let nav of menuNav">
-                    <mat-icon class="icon-menu">
-                        {{ nav.icon }}
-                    </mat-icon> {{ nav.name }}
+                    <mat-icon class="icon-menu"> {{ nav.icon }} </mat-icon> {{ nav.name }}
                 </a>
-
             </mat-nav-list>
+            
+            <div class="sidenav-footer">
+                <mat-divider></mat-divider>
+                <p>© 2024 ErSys S.A.</p>
+            </div>
+            
         </mat-sidenav>
-
-        <mat-sidenav-content>
+        <mat-sidenav-content class="container">
             <router-outlet></router-outlet>
         </mat-sidenav-content>
-
     </mat-sidenav-container>
-
-
-
 </div>|

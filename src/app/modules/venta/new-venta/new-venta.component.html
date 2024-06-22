@@ -47,10 +47,10 @@
 </mat-dialog-content>
 
 <mat-dialog-actions>
-  <button mat-button color="primary" (click)="onSave()" [disabled]="ventaForm.invalid">
-    <mat-icon>save</mat-icon>Guardar
-  </button>
   <button mat-button color="primary" (click)="onCancel()">
     <mat-icon>cancel</mat-icon>Cancelar
+  </button>
+  <button mat-button color="primary" (click)="onSave()" [disabled]="ventaForm.invalid">
+    <mat-icon>save</mat-icon>Guardar
   </button>
 </mat-dialog-actions>

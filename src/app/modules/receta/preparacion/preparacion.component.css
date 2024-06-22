@@ -1,20 +1,58 @@
-.category-container {
-  display: flex;
-  align-items: center;
-  gap: 10px;
+.alinearC {
+  font-size: 16px;
+  color: #142d42;
   margin-bottom: 15px;
-}
-
-h1 {
+  border-bottom: 1px solid #142d42;
   text-align: center;
 }
 
-.field {
-  flex: 1;
+
+.alinearI {
+  font-size: 16px;
+  color: #142d42;
+  margin-bottom: 5px;
+  text-align: left;
+  border-bottom: auto;
+}
+
+
+.form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  column-gap: 15px;
+  padding: 2px;
+}
+
+
+.field-full {
+  flex: 0 1 100%;
+}
+
+.field-correo {
+  flex: 0 1 65%;
+}
+
+.field-texto {
+  flex: 1 1 40%;
+}
+
+.field-numeros {
+  flex: 0 1 20%;
+}
+
+mat-dialog-content {
+  max-height: 600px; 
+  overflow-y: auto;
 }
 
 mat-dialog-actions {
   display: flex;
-  justify-content: flex-end;
-  gap: 10px;
+  justify-content: space-between;
+  padding: 15px 15px;
+}
+
+.action-button {
+  margin-right: 8px; 
+
 }

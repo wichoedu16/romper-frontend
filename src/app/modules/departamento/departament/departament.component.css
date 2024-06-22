@@ -38,7 +38,7 @@ td {
     gap: 10px;
 }
 
-.example-full-width {
+.field-texto {
     width: 100%;
     max-width: 48%; /* Adjust as needed for different screen sizes */
 }

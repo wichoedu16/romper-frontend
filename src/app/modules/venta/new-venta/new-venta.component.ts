@@ -23,7 +23,7 @@ export class NewVentaComponent implements OnInit {
   totalVenta: number = 0;
 
   ngOnInit(): void {
-    this.obtenerPlatos();
+    this.obtenerPlatosActivos();
     this.ventaForm = this.fb.group({
       platos: this.fb.array([])
     });
@@ -33,13 +33,18 @@ export class NewVentaComponent implements OnInit {
     return this.ventaForm.get('platos') as FormArray;
   }
 
-  obtenerPlatos(){
-    this.platoService.obtenerTodos().subscribe(
+  obtenerPlatosActivos() {
+    const estado = 'A';
+    this.platoService.obtenerActivos(estado).subscribe(
       (data: any) => {
-        this.platos = data.platoResponse.platos;
+        if (data && data.platoResponse && data.platoResponse.platos) {
+          this.platos = data.platoResponse.platos;
+        } else {
+          console.log('Formato de respuesta incorrecto', data);
+        }
       },
       (error: any) => {
-        console.log('Error al consultar platos en ventas');
+        console.log('Error al consultar platos en ventas', error);
       }
     );
   }

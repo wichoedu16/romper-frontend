@@ -61,7 +61,7 @@ export class VentaComponent implements OnInit {
       ventaLista.forEach((element: VentaElement) => {
         element.plato = element.plato.nombre;
         const fecha = parseDateString(element.fechaVenta as unknown as string);
-        element.fechaVenta = fecha ? this.dateFormatter.transform(fecha, 'dd-MM-yyyy')! : '';
+        element.fechaVenta = fecha ? this.dateFormatter.transform(fecha, 'dd-MM-yyyy HH:mm:ss')! : '';
         dataVenta.push(element);
       });
 
@@ -81,16 +81,16 @@ export class VentaComponent implements OnInit {
     let fechaHasta = this.filtroForm.get('fechaHasta')?.value;
 
     // Transformar las fechas al formato 'dd-MM-yyyy'
-    fechaDesde = this.dateFormatter.transform(fechaDesde, 'dd-MM-yyyy');
-    fechaHasta = this.dateFormatter.transform(fechaHasta, 'dd-MM-yyyy');
+    fechaDesde = this.dateFormatter.transform(fechaDesde, 'dd-MM-yyyy HH:mm:ss');
+    fechaHasta = this.dateFormatter.transform(fechaHasta, 'dd-MM-yyyy HH:mm:ss');
 
     // Verificar si las fechas están vacías
     if (!fechaDesde) {
-      fechaDesde = this.dateFormatter.transform(new Date(), 'dd-MM-yyyy');
+      fechaDesde = this.dateFormatter.transform(new Date(), 'dd-MM-yyyy HH:mm:ss');
     }
 
     if (!fechaHasta) {
-      fechaHasta = this.dateFormatter.transform(new Date(), 'dd-MM-yyyy');
+      fechaHasta = this.dateFormatter.transform(new Date(), 'dd-MM-yyyy HH:mm:ss');
     }
 
     this.ventaService.buscarPorFechas(fechaDesde, fechaHasta).subscribe(
@@ -153,9 +153,27 @@ export interface VentaElement {
 }
 
 function parseDateString(dateString: string): Date | null {
-  const [day, month, year] = dateString.split('-').map(part => parseInt(part, 10));
-  if (!day || !month || !year) {
+  if (!dateString) {
+    console.log('Fecha nula o indefinida');
     return null;
   }
-  return new Date(year, month - 1, day);
+
+  const parts = dateString.split(' ');
+  if (parts.length !== 2) {
+    console.log('Formato de fecha no válido');
+    return null;
+  }
+
+  const dateParts = parts[0].split('-');
+  const timeParts = parts[1].split(':');
+
+  if (dateParts.length !== 3 || timeParts.length < 2) {
+    console.log('Partes de fecha o hora no válidas');
+    return null;
+  }
+
+  const [day, month, year] = dateParts.map(part => parseInt(part, 10));
+  const [hours, minutes, seconds = 0] = timeParts.map(part => parseInt(part, 10));
+
+  return new Date(year, month - 1, day, hours, minutes, seconds);
 }

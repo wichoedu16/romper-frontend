@@ -15,6 +15,11 @@ export class RecetaService {
     return this.http.get(endpoint);
   }
 
+  obtenerActivos(estado: string) {
+    const endpoint = `${base_url}/platos/estado/${estado}`;
+    return this.http.get(endpoint);
+  }
+
   obtenerPorNombre(name: any) {
     const endpoint = `${base_url}/platos/filtro/${name}`;
     return this.http.get(endpoint);

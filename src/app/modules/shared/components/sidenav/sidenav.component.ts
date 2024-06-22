@@ -18,6 +18,7 @@ export class SidenavComponent implements OnInit {
     {name: "Inicio", route: "home", icon: "home"},
     {name: "Proveedores", route: "proveedor", icon: "tapas"},
     {name: "Ingredientes", route: "ingrediente", icon: "drag_indicator"},
+    {name: "Inventario", route: "inventario", icon: "inventory_2"},
     {name: "Platos", route: "receta", icon: "fastfood"},
     {name: "Ventas", route: "venta", icon: "add_shopping_cart"},
     {name: "Empleados", route: "employee", icon: "person"}   
@@ -30,7 +31,7 @@ export class SidenavComponent implements OnInit {
   shouldRun = true;
 
   ngOnInit(): void { 
-    this.userName = this.keycloackService.getUsername();
+    //this.userName = this.keycloackService.getUsername();
    }
 
   cerrarSesion(){

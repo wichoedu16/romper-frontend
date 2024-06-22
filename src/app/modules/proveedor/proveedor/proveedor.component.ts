@@ -28,7 +28,7 @@ export class ProveedorComponent implements OnInit {
     this.buscarProveedores();
     this.esAdministrador = this.util.validarAdministrador();
   }
-  displayedColumns: string[] = ['id', 'empresa', 'nombre', 'contacto', 'actions'];
+  displayedColumns: string[] = ['id', 'empresa', 'nombreProveedor', 'telefonoProveedor', 'actions'];
 
   dataSource = new MatTableDataSource<ProveedorElement>();
   @ViewChild(MatPaginator)
@@ -131,6 +131,13 @@ export class ProveedorComponent implements OnInit {
 export interface ProveedorElement {
   id: number;
   empresa: string;
-  nombre: string;
-  contacto: number;
+  nombreProveedor: string;
+  telefonoProveedor: string;
+  banco: string;
+  tipoCuenta: string;
+  numeroCuenta: string;
+  identificacion: string;
+  nombreContacto: string;
+  telefonoContacto: string;
+  correoContacto: string;
 }

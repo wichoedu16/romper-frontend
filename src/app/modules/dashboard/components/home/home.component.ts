@@ -14,7 +14,7 @@ export class HomeComponent implements OnInit{
   
   chartBar: any;
   chartDoughnut: any;
-  chartPolarArea: any;
+  chart: any;
 
   ngOnInit(): void { 
     this.obtenerIngredientes();
@@ -55,7 +55,7 @@ export class HomeComponent implements OnInit{
       });
 
       //grafico de polarArea
-       this.chartPolarArea = new Chart('canvas-polarArea', {
+       this.chartDoughnut = new Chart('canvas-polarArea', {
         type: 'polarArea',
         data: {
           labels: nombreIngrediente,

@@ -1,16 +1,13 @@
 import { Component, OnInit, ViewChild, inject } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import {
-  MatSnackBar,
-  MatSnackBarRef,
-  SimpleSnackBar,
-} from '@angular/material/snack-bar';
+import { MatSnackBar, MatSnackBarRef, SimpleSnackBar } from '@angular/material/snack-bar';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { RecetaService } from '../../shared/services/receta.service';
 import { NewRecetaComponent } from '../new-receta/new-receta.component';
 import { ConfirmComponent } from '../../shared/components/confirm/confirm.component';
 import { PreparacionComponent } from '../preparacion/preparacion.component';
+import { UtilService } from '../../shared/services/util.service';
 
 @Component({
   selector: 'app-receta',
@@ -18,29 +15,37 @@ import { PreparacionComponent } from '../preparacion/preparacion.component';
   styleUrls: ['./receta.component.css'],
 })
 export class RecetaComponent implements OnInit {
+  esAdministrador: any;
   private recetaService = inject(RecetaService);
   private snackBar = inject(MatSnackBar);
   public dialog = inject(MatDialog);
+  private util = inject(UtilService);
 
   public noResultsMessage = '';
+  dataSource = new MatTableDataSource<RecetaElement>();
+  
+  @ViewChild(MatPaginator)
+  paginator!: MatPaginator;
+
+  displayedColumns: string[] = ['id', 'nombre', 'pvp', 'estado', 'actions'];
 
   ngOnInit(): void {
     this.getRecetas();
+    this.esAdministrador = this.util.validarAdministrador();
   }
-
-  displayedColumns: string[] = ['id', 'nombre', 'pvp', 'actions'];
-
-  dataSource = new MatTableDataSource<RecetaElement>();
-  @ViewChild(MatPaginator)
-  paginator!: MatPaginator;
 
   buscar(termino: string) {
     if (termino.length === 0) {
       return this.getRecetas();
     }
-    this.recetaService.obtenerPorNombre(termino).subscribe((resp: any) => {
-      this.processRecetasResponse(resp);
-    });
+    this.recetaService.obtenerPorNombre(termino).subscribe(
+      (resp: any) => {
+        this.processRecetasResponse(resp);
+      },
+      (error: any) => {
+        this.handleError(error, 'Error al buscar recetas');
+      }
+    );
   }
 
   getRecetas(): void {
@@ -49,7 +54,7 @@ export class RecetaComponent implements OnInit {
         this.processRecetasResponse(data);
       },
       (error: any) => {
-        console.log('ERRRRRRROR: ', error);
+        this.handleError(error, 'Error al consultar recetas');
       }
     );
   }
@@ -59,6 +64,10 @@ export class RecetaComponent implements OnInit {
 
     if (resp.metadata[0].code === '00') {
       let recetaList = resp.platoResponse.platos;
+
+      if (!this.esAdministrador) {
+        recetaList = recetaList.filter((element: RecetaElement) => element.estado === 'A');
+      }
 
       if (recetaList.length === 0) {
         this.noResultsMessage = 'No se encontraron resultados';
@@ -72,91 +81,88 @@ export class RecetaComponent implements OnInit {
         this.dataSource.paginator = this.paginator;
       }
     } else {
-      console.log('ERRRRRROR: ');
+      this.handleError(null, 'Error en la respuesta del servidor');
     }
   }
 
-  openRecetaDialog() {
+  abrirDialogo() {
     const dialogRef = this.dialog.open(NewRecetaComponent, {
-      width: '400px',
+      width: '500px',
     });
 
     dialogRef.afterClosed().subscribe((result: any) => {
-      if (result == 1) {
-        this.openSnackBar('Plato Agregado', 'Exito');
+      if (result === 1) {
+        this.openSnackBar('Plato Agregado', 'Éxito');
         this.getRecetas();
-      } else if (result == 2) {
+      } else if (result === 2) {
         this.openSnackBar('Se produjo un error al guardar el plato', 'Error');
       }
     });
   }
 
-  show(receta: any) {
+  show(receta: RecetaElement) {
     const dialogRef = this.dialog.open(PreparacionComponent, {
-      width: '700px',
+      width: '800px',
       data: receta,
     });
 
     dialogRef.afterClosed().subscribe((result: any) => {
-      if (result == 1) {
-        this.openSnackBar('Plato Actualizada', 'Exito');
+      if (result === 1) {
+        this.openSnackBar('Plato Actualizado', 'Éxito');
         this.getRecetas();
-      } else if (result == 2) {
-        this.openSnackBar(
-          'Se produjo un error al actualizar el plato',
-          'Error'
-        );
+      } else if (result === 2) {
+        this.openSnackBar('Se produjo un error al actualizar el plato', 'Error');
       }
     });
   }
 
-  edit(receta: any) {
+  edit(receta: RecetaElement) {
     const dialogRef = this.dialog.open(NewRecetaComponent, {
       width: '400px',
       data: receta,
     });
 
     dialogRef.afterClosed().subscribe((result: any) => {
-      if (result == 1) {
-        this.openSnackBar('Plato Actualizada', 'Exito');
+      if (result === 1) {
+        this.openSnackBar('Plato Actualizado', 'Éxito');
         this.getRecetas();
-      } else if (result == 2) {
-        this.openSnackBar(
-          'Se produjo un error al actualizar el plato',
-          'Error'
-        );
+      } else if (result === 2) {
+        this.openSnackBar('Se produjo un error al actualizar el plato', 'Error');
       }
     });
   }
 
-  delete(id: any) {
+  delete(id: number) {
     const dialogRef = this.dialog.open(ConfirmComponent, {
       width: '350px',
       data: { id: id, module: 'receta' },
     });
 
     dialogRef.afterClosed().subscribe((result: any) => {
-      if (result == 1) {
-        this.openSnackBar('Receta eliminada', 'Exito');
+      if (result === 1) {
+        this.openSnackBar('Receta eliminada', 'Éxito');
         this.getRecetas();
-      } else if (result == 2) {
+      } else if (result === 2) {
         this.openSnackBar('Se produjo un error al eliminar la receta', 'Error');
       }
     });
   }
 
-  openSnackBar(
-    message: string,
-    action: string
-  ): MatSnackBarRef<SimpleSnackBar> {
+  openSnackBar(message: string, action: string): MatSnackBarRef<SimpleSnackBar> {
     return this.snackBar.open(message, action, {
       duration: 5000,
     });
+  }
+
+  handleError(error: any, message: string) {
+    console.error(message, error);
+    this.openSnackBar(message, 'Error');
   }
 }
 
 export interface RecetaElement {
   id: number;
   nombre: string;
-  pvp: bigint;
+  pvp: number;
+  estado: string;
 }

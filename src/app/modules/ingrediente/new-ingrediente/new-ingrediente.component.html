@@ -1,51 +1,49 @@
-<h1 mat-dialog-title> {{ estadoFormulario }} Ingrediente</h1>
+<h1 class="alinearC" mat-dialog-title> {{ estadoFormulario }} Ingrediente</h1>
     <mat-dialog-content>
-
         <form [formGroup]="ingredienteForm">
-            <div class="category-container">
-                <mat-form-field appearance="fill" class="field">
+            <div class="form">
+                <mat-form-field appearance="fill" class="field-full">
                     <mat-label>Proveedor</mat-label>
                     <mat-select formControlName="proveedorId">
                         <mat-option *ngFor="let item of proveedores" [value]="item.id">
-                            {{item.nombre}}
+                            {{item.empresa}} - {{item.nombreProveedor}}
                         </mat-option>
                     </mat-select>
                 </mat-form-field>
                 
-                <mat-form-field appearance="fill" class="field">
+                <mat-form-field appearance="fill" class="field-full">
                     <mat-label>Nombre</mat-label>
                     <input matInput placeholder="Nombre" formControlName="nombre" />
                 </mat-form-field>
                
-                <mat-form-field appearance="fill" class="field">
-                    <mat-label>Cantidad</mat-label>
-                    <input matInput placeholder="Cantidad" formControlName="cantidad" />
-                </mat-form-field>
-                
-                <mat-form-field appearance="fill" class="field">
+                <mat-form-field appearance="fill" class="field-numeros">
                     <mat-label>Unidad</mat-label>
                     <mat-select formControlName="unidad">
-                        <mat-option value="gr">Gramos</mat-option>
                         <mat-option value="u">Unidad</mat-option>
-                        <mat-option value="oz">Onzas</mat-option>
+                        <mat-option value="lt">Litro</mat-option>
+                        <mat-option value="gr">Gramos</mat-option>
                     </mat-select>
                 </mat-form-field>
+
+                <mat-form-field appearance="fill" class="field-numeros">
+                    <mat-label>Cantidad</mat-label>
+                    <input matInput type="number" placeholder="Cantidad" formControlName="cantidad" />
+                </mat-form-field>
                
-                <mat-form-field appearance="fill" class="field">
+                <mat-form-field appearance="fill" class="field-numeros">
                     <mat-label>Costo</mat-label>
-                    <input matInput placeholder="Costo" formControlName="costo" />
+                    <span matTextPrefix>$&nbsp;</span>
+                    <input matInput type="number"  placeholder="Costo" formControlName="costo" />
                 </mat-form-field>
             </div>
         </form>
     </mat-dialog-content>
 
     <mat-dialog-actions>
-        <button mat-button color="primary" (click)="onSave()" [disabled]="ingredienteForm.invalid">
-            <mat-icon>save</mat-icon>Guardar
-        </button>
-
-        <button mat-button color="primary" (click)="onCancel()">
+        <button mat-button color="primary" (click)="cancelar()">
             <mat-icon>cancel</mat-icon>Cancelar
         </button>
-
+        <button mat-button color="primary" (click)="grabar()" [disabled]="ingredienteForm.invalid">
+            <mat-icon>save</mat-icon>Guardar
+        </button>
     </mat-dialog-actions>
