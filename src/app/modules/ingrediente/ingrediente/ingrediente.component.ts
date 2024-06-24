@@ -7,6 +7,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { NewIngredienteComponent } from '../new-ingrediente/new-ingrediente.component';
 import { ConfirmComponent } from '../../shared/components/confirm/confirm.component';
 import { ProveedorElement } from '../../proveedor/proveedor/proveedor.component';
+import { NewInventarioComponent } from '../new-inventario/new-inventario.component';
 
 @Component({
   selector: 'app-ingrediente',
@@ -95,17 +96,17 @@ export class IngredienteComponent implements OnInit {
   }
 
   agregar(ingrediente: any) {
-    const dialogRef = this.dialog.open(NewIngredienteComponent, {
+    const dialogRef = this.dialog.open(NewInventarioComponent, {
       width: '700px',
       data: {ingrediente, estadoFormulario: 'Agregar'}
     });
 
     dialogRef.afterClosed().subscribe((result: any) => {
       if (result == 1) {
-        this.openSnackBar('Ingrediente agregado', 'Exito');
+        this.openSnackBar('Ingrediente ingresado en inventario', 'Exito');
         this.obtenerIngredientes();
       } else if (result == 2) {
-        this.openSnackBar('No se puede agregar', 'Error');
+        this.openSnackBar('No se puede agregar en inventario', 'Error');
       }
     });
   }
@@ -167,10 +168,8 @@ export class IngredienteComponent implements OnInit {
 }
 export interface IngredienteElement {
   id: number;
-  codigo:string;
   nombre: string;
   unidad: string;
-  cantidad: number;
   costo: number
   proveedor: any;
 }

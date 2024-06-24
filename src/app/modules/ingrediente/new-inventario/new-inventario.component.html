@@ -1,0 +1,37 @@
+<h1 class="alinearC" mat-dialog-title> {{ estadoFormulario }}</h1>
+    <mat-dialog-content>
+        <form [formGroup]="inventarioForm">
+            <div class="form">
+                <mat-form-field appearance="fill" class="field-full">
+                    <mat-label>Ingrediente</mat-label>
+                    <mat-select formControlName="ingredienteId">
+                        <mat-option *ngFor="let item of ingredientes" [value]="item.id">
+                            {{item.nombre}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+    
+                <mat-form-field appearance="fill" class="field-numeros">
+                    <mat-label>Tipo</mat-label>
+                    <mat-select formControlName="tipo">
+                        <mat-option value="I">Ingreso</mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field appearance="fill" class="field-numeros">
+                    <mat-label>Cantidad</mat-label>
+                    <input matInput type="number" placeholder="Cantidad" formControlName="cantidad" />
+                </mat-form-field>
+               
+            </div>
+        </form>
+    </mat-dialog-content>
+
+    <mat-dialog-actions>
+        <button mat-button color="primary" (click)="cancelar()">
+            <mat-icon>cancel</mat-icon>Cancelar
+        </button>
+        <button mat-button color="primary" (click)="grabar()" [disabled]="inventarioForm.invalid">
+            <mat-icon>save</mat-icon>Guardar
+        </button>
+    </mat-dialog-actions>

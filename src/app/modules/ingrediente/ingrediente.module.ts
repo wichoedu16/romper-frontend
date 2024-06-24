@@ -5,6 +5,7 @@ import { NewIngredienteComponent } from './new-ingrediente/new-ingrediente.compo
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from '../shared/material.module';
 import { InventarioComponent } from './inventario/inventario.component';
+import { NewInventarioComponent } from './new-inventario/new-inventario.component';
 
 
 
@@ -12,7 +13,8 @@ import { InventarioComponent } from './inventario/inventario.component';
   declarations: [
     IngredienteComponent,
     NewIngredienteComponent,
-    InventarioComponent
+    InventarioComponent,
+    NewInventarioComponent
   ],
   imports: [
     CommonModule,

@@ -19,6 +19,10 @@ export class IngredienteService {
     return this.http.get(endpoint);
   }
 
+  filtrarInventarioPorFecha(fechaDesde: any, fechaHasta: any) {
+    throw new Error('Method not implemented.');
+  }
+
   buscarPorNombre(name: any) {
     const endpoint = `${base_url}/ingredientes/filtro/${name}`;
     return this.http.get(endpoint);

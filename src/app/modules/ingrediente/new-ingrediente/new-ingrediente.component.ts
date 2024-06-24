@@ -45,8 +45,8 @@ export class NewIngredienteComponent implements OnInit {
       unidad: this.ingredienteForm.get('unidad')?.value,
       proveedorId: this.ingredienteForm.get('proveedorId')?.value,
     };
-
-    if (this.data != null) {
+    console.log(this.estadoFormulario);
+    if (this.data != null && this.estadoFormulario != 'Nuevo') {
       this.ingredienteService.actualizar(data, this.data.id).subscribe(
         (data: any) => {
           this.dialogRef.close(1);

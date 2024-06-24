@@ -149,7 +149,7 @@ export interface VentaElement {
   cantidad: number;
   precio: number;
   total: number;
-  fechaVenta: string;  // Cambia el tipo de Date a string para almacenar la fecha formateada
+  fechaVenta: string;  
 }
 
 function parseDateString(dateString: string): Date | null {

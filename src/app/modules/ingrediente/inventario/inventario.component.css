@@ -1,0 +1,70 @@
+@import url("https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+h2 {
+    color: rgb(20, 45, 66);
+}
+
+
+th, td {
+    padding: 1em;
+}
+
+th {
+    font-size: 16px;
+    text-align: center;
+}
+
+td {
+    font-size: 13px;
+    text-align: center;
+}
+
+.panel-busqueda {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: nowrap;
+    gap: 10px;
+    flex-direction: row;
+    align-items: center;
+}
+
+.alinearC {
+    text-align: center;
+}
+
+.filter-panel {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.filtro-form {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.mat-form-field {
+    flex: 1 1 200px;
+}
+
+.create-panel {
+    display: flex;
+    justify-content: flex-start;
+    margin-bottom: 20px;
+    flex-wrap: nowrap;
+    flex-direction: row-reverse;
+    align-content: space-between;
+    align-items: center;
+    margin-right: 20px;
+}
+
+.nuevo-venta-btn {
+    margin-left: 20px;
+}
+
+.table-panel {
+    margin-top: 20px;
+}

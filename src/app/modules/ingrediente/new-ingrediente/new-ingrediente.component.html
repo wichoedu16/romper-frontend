@@ -16,7 +16,7 @@
                     <input matInput placeholder="Nombre" formControlName="nombre" />
                 </mat-form-field>
                
-                <mat-form-field appearance="fill" class="field-numeros">
+                <mat-form-field appearance="fill" class="field-texto">
                     <mat-label>Unidad</mat-label>
                     <mat-select formControlName="unidad">
                         <mat-option value="u">Unidad</mat-option>
@@ -24,16 +24,11 @@
                         <mat-option value="gr">Gramos</mat-option>
                     </mat-select>
                 </mat-form-field>
-
-                <mat-form-field appearance="fill" class="field-numeros">
-                    <mat-label>Cantidad</mat-label>
-                    <input matInput type="number" placeholder="Cantidad" formControlName="cantidad" />
-                </mat-form-field>
                
-                <mat-form-field appearance="fill" class="field-numeros">
-                    <mat-label>Costo</mat-label>
+                <mat-form-field appearance="fill" class="field-texto">
+                    <mat-label>Costo/Unidad</mat-label>
                     <span matTextPrefix>$&nbsp;</span>
-                    <input matInput type="number"  placeholder="Costo" formControlName="costo" />
+                    <input matInput type="number"  placeholder="Costo/Unidad" formControlName="costo" />
                 </mat-form-field>
             </div>
         </form>
