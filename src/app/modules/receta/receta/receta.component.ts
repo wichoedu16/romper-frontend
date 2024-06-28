@@ -135,7 +135,7 @@ export class RecetaComponent implements OnInit {
   delete(id: number) {
     const dialogRef = this.dialog.open(ConfirmComponent, {
       width: '350px',
-      data: { id: id, module: 'receta' },
+      data: { id: id, module: 'receta', estadoFormulario: 'Eliminar'},
     });
 
     dialogRef.afterClosed().subscribe((result: any) => {

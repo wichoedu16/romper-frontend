@@ -16,7 +16,7 @@ th {
 
 td {
     font-size: 13px;
-    text-align: center;
+    text-align: left;
 }
 
 .panel-busqueda {
@@ -67,4 +67,9 @@ td {
 
 .table-panel {
     margin-top: 20px;
+}
+
+.action-button {
+    margin-right: 8px; 
+
 }

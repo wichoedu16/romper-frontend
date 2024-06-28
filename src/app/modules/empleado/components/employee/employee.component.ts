@@ -107,7 +107,7 @@ export class EmployeeComponent implements OnInit {
   delete(id: any) {
     const dialogRef = this.dialog.open(ConfirmComponent, {
       width: '350px',
-      data: { id: id, module: "employee" },
+      data: { id: id, module: "employee", estadoFormulario: 'Eliminar'},
     });
 
     dialogRef.afterClosed().subscribe((result: any) => {

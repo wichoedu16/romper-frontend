@@ -133,7 +133,7 @@ export class IngredienteComponent implements OnInit {
   eliminar(id: any) {
     const dialogRef = this.dialog.open(ConfirmComponent, {
       width: '350px',
-      data: { id: id, module: "ingrediente"},
+      data: { id: id, module: "ingrediente", estadoFormulario: 'Eliminar'},
     });
 
     dialogRef.afterClosed().subscribe((result: any) => {

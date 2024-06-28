@@ -114,7 +114,7 @@ export class ProveedorComponent implements OnInit {
   delete(id: any) {
     const dialogRef = this.dialog.open(ConfirmComponent, {
       width: '350px',
-      data: { id: id, module: 'proveedor' },
+      data: { id: id, module: 'proveedor', estadoFormulario: 'Eliminar'},
     });
 
     dialogRef.afterClosed().subscribe((result: any) => {

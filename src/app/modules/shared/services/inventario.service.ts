@@ -30,5 +30,11 @@ export class InventarioService {
     return this.http.post(endpoint, body);
   }
 
+  exportarExcel() {
+    const endpoint = `${base_url}/inventario/exportar/excel`;
+    return this.http.get(endpoint, {
+      responseType: 'blob'
+    });
+  }
 
 }

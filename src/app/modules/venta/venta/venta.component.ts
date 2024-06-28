@@ -7,6 +7,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { NewVentaComponent } from '../new-venta/new-venta.component';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { DatePipe } from '@angular/common';
+import { ConfirmComponent } from '../../shared/components/confirm/confirm.component';
 
 @Component({
   selector: 'app-venta',
@@ -35,7 +36,7 @@ export class VentaComponent implements OnInit {
     this.buscarVentas();
   }
 
-  displayedColumns: string[] = ['id', 'plato', 'cantidad', 'precio', 'total', 'fechaVenta'];
+  displayedColumns: string[] = ['id', 'plato', 'cantidad', 'precio', 'total', 'fechaVenta', 'actions'];
 
   dataSource = new MatTableDataSource<VentaElement>();
   @ViewChild(MatPaginator)
@@ -124,6 +125,22 @@ export class VentaComponent implements OnInit {
   ): MatSnackBarRef<SimpleSnackBar> {
     return this.snackBar.open(message, action, {
       duration: 5000,
+    });
+  }
+
+  anularVenta(venta: any) {
+    const dialogRef = this.dialog.open(ConfirmComponent, {
+      width: '750px',
+      data: {venta, module:'venta', estadoFormulario: 'Anular'}
+    });
+
+    dialogRef.afterClosed().subscribe((result: any) => {
+      if (result == 1) {
+        this.openSnackBar('Venta Anulada', 'Exito');
+        this.buscarVentas();
+      } else if (result == 2) {
+        this.openSnackBar('No se puede anular la venta', 'Error');
+      }
     });
   }
 

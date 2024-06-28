@@ -17,7 +17,6 @@ import { MatSort } from '@angular/material/sort';
 })
 export class InventarioComponent implements OnInit {
   private inventarioService = inject(InventarioService);
-  private ingredienteService = inject(IngredienteService);
   private snackBar = inject(MatSnackBar);
   public dialog = inject(MatDialog);
   private fb = inject(FormBuilder);
@@ -112,14 +111,14 @@ export class InventarioComponent implements OnInit {
   }
 
   exportarExcel() {
-    this.ingredienteService.exportarExcel().subscribe(
+    this.inventarioService.exportarExcel().subscribe(
       (data: any) => {
         let file = new Blob([data], {
           type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
         });
         let fileUrl = URL.createObjectURL(file);
         var anchor = document.createElement('a');
-        anchor.download = 'ingredientes.xlsx';
+        anchor.download = 'inventario'+ new Date +'.xlsx';
         anchor.href = fileUrl;
         anchor.click();
 

@@ -26,6 +26,12 @@ export class VentaService {
     return this.http.post(endpoint, body);
   }
 
+  actualizar(body:any, id: any){
+    console.log(body)
+    const endpoint = `${base_url}/ventas/${id}`;
+    return this.http.put(endpoint, body);
+  }
+
   exportarExcel() {
     const endpoint = `${base_url}/ventas/exportar/excel`;
     return this.http.get(endpoint, {

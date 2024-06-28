@@ -117,7 +117,7 @@ export class DepartamentComponent implements OnInit {
   delete(id: any) {
     const dialogRef = this.dialog.open(ConfirmComponent, {
       width: '350px',
-      data: { id: id, module: "departament"},
+      data: { id: id, module: "departament", estadoFormulario: 'Eliminar'},
     });
 
     dialogRef.afterClosed().subscribe((result: any) => {
